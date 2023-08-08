@@ -2,7 +2,7 @@ import struct
 
     
 def receiveProcess(clientsocket):
-    numberProcess = size = struct.unpack('!I', clientsocket.recv(4))[0]
+    numberProcess = struct.unpack('!I', clientsocket.recv(4))[0]
     print(numberProcess)
     processInfo = [];
     for i in range(numberProcess):

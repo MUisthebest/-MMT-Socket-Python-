@@ -1,6 +1,7 @@
 import socket
 from PIL import Image
 import receiveScreenShot
+import receiveRunningApp
 import receiveProcess
 
 
@@ -21,6 +22,7 @@ def start_client():
         if flag == "screenshot": receiveScreenShot.readImage(clientsocket)
         elif flag == "listprocess": receiveProcess.receiveProcess(clientsocket)
         elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
+        elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)
         elif flag == "shutdown": break
         else:
             data = clientsocket.recv(1024)

@@ -1,6 +1,7 @@
 import socket
 import threading
 import handleProcess 
+import handleRunningApp
 from shutdown import shutdown
 from sendScreenShot import sendScreenShot
 
@@ -24,12 +25,13 @@ def handleClientSocket(clientsocket):
             elif flag == "killprocess": 
                 parameter = int(parameter)
                 handleProcess.killProcess(clientsocket, parameter) 
+            elif flag == "listrunningapp" : handleRunningApp.listRunningApp(clientsocket)
             elif flag == "shutdown" : shutdown()
             else:
                 msg = 'Echo => '+ flag
                 clientsocket.send(msg.encode('ascii'))
         except:
-            print("goodbye") 
+            print("goodbye (err)") 
             break
     clientsocket.close()
 
