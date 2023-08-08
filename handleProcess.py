@@ -1,5 +1,16 @@
 import psutil
 import struct
+import signal
+import errno
+import os
+
+def killProcess(clientsocket, pid):
+    try:
+        os.kill(pid, signal.SIGTERM)
+        clientsocket.send("Kill succesful".encode())
+    except OSError as err:
+        print("wtf")
+        clientsocket.send("Error".encode())
 
 # Iterate over all running process
 def listProcess(clientsocket):
@@ -20,5 +31,8 @@ def listProcess(clientsocket):
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
 
-if __name__ == '__main__':
-    listProcess()
+
+
+
+# if __name__ == '__main__':
+#     listProcess(clie)

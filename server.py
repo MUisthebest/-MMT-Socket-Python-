@@ -1,23 +1,36 @@
 import socket
 import threading
 import handleProcess 
+from shutdown import shutdown
 from sendScreenShot import sendScreenShot
 
 
 def handleClientSocket(clientsocket):
+
     while True:
         try:
-            data = clientsocket.recv(1024).decode('ascii')
-            if not data: 
+            command = clientsocket.recv(1024).decode('ascii')
+            print(command)
+            if not command: 
                 print("goodbye")
                 break
-            print("Received from client: ", data)
-            if data == "screenshot": sendScreenShot(clientsocket)
-            elif data == "listprocess": handleProcess.listProcess(clientsocket) 
+            command = list(map(str, command.split()))
+            flag = command[0]
+            parameter = -1
+            if len(command) > 1 : parameter = command[1]
+            print("Received from client:",flag)
+            if flag == "screenshot": sendScreenShot(clientsocket)
+            elif flag == "listprocess": handleProcess.listProcess(clientsocket)
+            elif flag == "killprocess": 
+                parameter = int(parameter)
+                handleProcess.killProcess(clientsocket, parameter) 
+            elif flag == "shutdown" : shutdown()
             else:
-                msg = 'Echo => '+ data
+                msg = 'Echo => '+ flag
                 clientsocket.send(msg.encode('ascii'))
-        except: clientsocket.close()
+        except:
+            print("goodbye") 
+            break
     clientsocket.close()
 
 def start_server():
