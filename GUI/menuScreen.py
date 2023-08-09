@@ -15,6 +15,16 @@ fontWord = font.Font(family = "Times New Roman", size = 10)
 
 def click_screenshot(s):
     return s
+    
+def kill_window(root):
+    my_kll = Toplevel(root)
+    my_kll.geometry("280x60")
+    my_kll.configure(bg = COLOUR_BACKGROUND)
+    my_kll.title('Kill')
+    txt = Entry(my_kll,width=30)
+    txt.place(x=1, y=10)
+    txt.focus()
+    Button(my_kll, text="Kill",width=8).place(x=200, y=10)
 
 def scr_window():
     my_scr = Toplevel(mainClient)
@@ -53,7 +63,7 @@ def pcs_window():
     my_pcs.configure(bg = COLOUR_BACKGROUND)
     my_pcs.title('process')
     my_pcs.resizable(False, False)
-    buton1 = Button(my_pcs,text = 'Kill',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 0, row = 20, sticky = N)
+    buton1 = Button(my_pcs,text = 'Kill',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, command = lambda: kill_window(my_pcs), font = fontWord,width = 4, height = 2).grid(column = 0, row = 20, sticky = N)
     buton2 = Button(my_pcs,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 1, row = 20, sticky = N)
     buton3 = Button(my_pcs,text = 'Xóa',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 2, row = 20, sticky = N)
     buton4 = Button(my_pcs,text = 'Start',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 3, row = 20, sticky = N)
