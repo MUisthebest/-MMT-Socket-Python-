@@ -64,6 +64,7 @@ def pcs_window():
     txt = scrolledtext.ScrolledText(my_pcs,width=40,height=20)
     txt.place(relx = 0.2, rely = 0.2) 
 
+#Khi nào merge được connection sẽ dùng để check kết nối   
 def notice1():
     my_not = Toplevel(mainClient)
     my_not.geometry("250x250")
