@@ -6,12 +6,12 @@ def listRunningApp(clientsocket):
 
     windows = Desktop(backend="uia").windows()
     numberRunningApp = len(windows)
-    if windows[0] == "Taskbar" : numberRunningApp -= 1
+    if windows[0].window_text() == "Taskbar" : numberRunningApp -= 1
     clientsocket.sendall(struct.pack('!I', numberRunningApp))
     
     for w in windows:
         full_title = w.window_text()
-        if full_title == "Taskbar" : continue
+        if full_title == "Taskbar": continue
         if ' - ' in full_title:
             app_name = full_title.rsplit(' - ', 1)[1]
         else:

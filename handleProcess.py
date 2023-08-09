@@ -9,7 +9,6 @@ def killProcess(clientsocket, pid):
         os.kill(pid, signal.SIGTERM)
         clientsocket.send("Kill succesful".encode())
     except OSError as err:
-        print("wtf")
         clientsocket.send("Error".encode())
 
 # Iterate over all running process

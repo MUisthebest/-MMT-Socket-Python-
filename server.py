@@ -2,7 +2,7 @@ import socket
 import threading
 import handleProcess 
 import handleRunningApp
-from shutdown import shutdown
+import controlOS
 from sendScreenShot import sendScreenShot
 
 
@@ -26,7 +26,7 @@ def handleClientSocket(clientsocket):
                 parameter = int(parameter)
                 handleProcess.killProcess(clientsocket, parameter) 
             elif flag == "listrunningapp" : handleRunningApp.listRunningApp(clientsocket)
-            elif flag == "shutdown" : shutdown()
+            elif flag == "shutdown" : controlOS.shutdown()
             else:
                 msg = 'Echo => '+ flag
                 clientsocket.send(msg.encode('ascii'))
