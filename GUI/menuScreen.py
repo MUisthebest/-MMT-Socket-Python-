@@ -1,6 +1,7 @@
 from tkinter import *
 from define import *
 from tkinter import font
+from tkinter import scrolledtext
 import os
 
 from app import App
