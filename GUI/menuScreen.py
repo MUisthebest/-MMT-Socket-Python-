@@ -25,6 +25,16 @@ def kill_window(root):
     txt.place(x=1, y=10)
     txt.focus()
     Button(my_kll, text="Kill",width=8).place(x=200, y=10)
+    
+def start_window(root):
+    my_sta = Toplevel(root)
+    my_sta.geometry("280x60")
+    my_sta.configure(bg = COLOUR_BACKGROUND)
+    my_sta.title('Start')
+    txt = Entry(my_sta,width=30)
+    txt.place(x=1, y=10)
+    txt.focus()
+    Button(my_sta, text="Start",width=8).place(x=200, y=10)
 
 def scr_window():
     my_scr = Toplevel(mainClient)
@@ -66,7 +76,7 @@ def pcs_window():
     buton1 = Button(my_pcs,text = 'Kill',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, command = lambda: kill_window(my_pcs), font = fontWord,width = 4, height = 2).grid(column = 0, row = 20, sticky = N)
     buton2 = Button(my_pcs,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 1, row = 20, sticky = N)
     buton3 = Button(my_pcs,text = 'Xóa',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 2, row = 20, sticky = N)
-    buton4 = Button(my_pcs,text = 'Start',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 3, row = 20, sticky = N)
+    buton4 = Button(my_pcs,text = 'Start',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, command = lambda: start_window(my_pcs), font = fontWord,width = 4, height = 2).grid(column = 3, row = 20, sticky = N)
     my_pcs.columnconfigure(0,weight=1)
     my_pcs.columnconfigure(1,weight=1)
     my_pcs.columnconfigure(2,weight=1)
