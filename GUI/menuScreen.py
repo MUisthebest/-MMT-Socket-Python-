@@ -13,6 +13,9 @@ app = App(mainClient)
 
 fontWord = font.Font(family = "Times New Roman", size = 10)
 
+def click_screenshot(s):
+    return s
+
 def scr_window():
     my_scr = Toplevel(mainClient)
     my_scr.geometry("700x600")
@@ -21,7 +24,7 @@ def scr_window():
     my_scr.resizable(False, False)
     label = Label(my_scr,text = "",width = 70, height = 30)
     label.place(relx = 0.08, rely = 0.1 )
-    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16)
+    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = click_screenshot("screenshot"))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8)
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
