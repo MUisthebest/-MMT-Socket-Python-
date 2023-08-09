@@ -91,6 +91,7 @@ def notice1():
     my_not1.configure(bg = COLOUR_BACKGROUND)
     my_not1.title('')
     l1 = Label(my_not1,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    
 def notice2():
     my_not2 = Toplevel(mainClient)
     my_not2.geometry("250x250")
@@ -104,6 +105,31 @@ def notice3():
     my_not3.configure(bg = COLOUR_BACKGROUND)
     my_not3.title('')
     l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+# Điều kiện của KILL
+
+def notice4(root):
+    my_not4 = Toplevel(root)
+    my_not4.geometry("250x250")
+    my_not4.configure(bg = COLOUR_BACKGROUND)
+    my_not4.title('')
+    l1 = Label(my_not4,text = 'Đã diệt proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+def notice5(root):
+    my_not5 = Toplevel(root)
+    my_not5.geometry("250x250")
+    my_not5.configure(bg = COLOUR_BACKGROUND)
+    my_not5.title('')
+    l1 = Label(my_not5,text = 'Không tồn tại proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+# Điều kiện của Start
+
+def notice6(root):
+    my_not6 = Toplevel(root)
+    my_not6.geometry("250x250")
+    my_not6.configure(bg = COLOUR_BACKGROUND)
+    my_not6.title('')
+    l1 = Label(my_not6,text = 'Đã tắt proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
 def draw ():
