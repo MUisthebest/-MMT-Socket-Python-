@@ -62,7 +62,28 @@ def pcs_window():
     my_pcs.columnconfigure(2,weight=1)
     my_pcs.columnconfigure(3,weight=1)
     txt = scrolledtext.ScrolledText(my_pcs,width=40,height=20)
-    txt.place(relx = 0.2, rely = 0.2)    
+    txt.place(relx = 0.2, rely = 0.2) 
+
+def notice1():
+    my_not = Toplevel(mainClient)
+    my_not.geometry("250x250")
+    my_not.configure(bg = COLOUR_BACKGROUND)
+    my_not.title('')
+    l1 = Label(my_not,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+def notice2():
+    my_not = Toplevel(mainClient)
+    my_not.geometry("250x250")
+    my_not.configure(bg = COLOUR_BACKGROUND)
+    my_not.title('')
+    l1 = Label(my_not,text = 'Lỗi kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+def notice3():
+    my_not = Toplevel(mainClient)
+    my_not.geometry("250x250")
+    my_not.configure(bg = COLOUR_BACKGROUND)
+    my_not.title('')
+    l1 = Label(my_not,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
 
 def draw ():
     mainClient.columnconfigure(0, weight = 1)
