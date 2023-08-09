@@ -66,24 +66,24 @@ def pcs_window():
 
 #Khi nào merge được connection sẽ dùng để check kết nối   
 def notice1():
-    my_not = Toplevel(mainClient)
-    my_not.geometry("250x250")
-    my_not.configure(bg = COLOUR_BACKGROUND)
-    my_not.title('')
-    l1 = Label(my_not,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    my_not1 = Toplevel(mainClient)
+    my_not1.geometry("250x250")
+    my_not1.configure(bg = COLOUR_BACKGROUND)
+    my_not1.title('')
+    l1 = Label(my_not1,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 def notice2():
-    my_not = Toplevel(mainClient)
-    my_not.geometry("250x250")
-    my_not.configure(bg = COLOUR_BACKGROUND)
-    my_not.title('')
-    l1 = Label(my_not,text = 'Lỗi kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    my_not2 = Toplevel(mainClient)
+    my_not2.geometry("250x250")
+    my_not2.configure(bg = COLOUR_BACKGROUND)
+    my_not2.title('')
+    l1 = Label(my_not2,text = 'Lỗi kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 def notice3():
-    my_not = Toplevel(mainClient)
-    my_not.geometry("250x250")
-    my_not.configure(bg = COLOUR_BACKGROUND)
-    my_not.title('')
-    l1 = Label(my_not,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    my_not3 = Toplevel(mainClient)
+    my_not3.geometry("250x250")
+    my_not3.configure(bg = COLOUR_BACKGROUND)
+    my_not3.title('')
+    l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
 def draw ():
