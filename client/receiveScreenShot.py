@@ -5,8 +5,9 @@ from GUI import menuScreen
 from GUI import communicate
 import struct
 import io
-
-tempImage_path = 'GUI/tempData/tempImage.png'
+import os 
+script_dir = os.path.dirname(__file__)
+tempImage_path = os.path.join(script_dir, "GUI/tempData/tempImage.png")
 
 def saveImage():
     root = Tk()
