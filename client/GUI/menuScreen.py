@@ -97,20 +97,24 @@ def scr_window():
 
 def kst_window():
     my_kst = Toplevel(mainClient)
-    my_kst.geometry("700x550")
+    my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
     my_kst.title('Keystroke')
     my_kst.resizable(False, False)
-    buton1 = Button(my_kst,text = 'Hook',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 6, height = 2).grid(column = 0, row = 20, sticky = N)
-    buton2 = Button(my_kst,text = 'Unhook',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 6, height = 2).grid(column = 1, row = 20, sticky = N)
-    buton3 = Button(my_kst,text = 'In phím',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 6, height = 2).grid(column = 2, row = 20, sticky = N)
-    buton4 = Button(my_kst,text = 'Xóa',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 6, height = 2).grid(column = 3, row = 20, sticky = N)
-    my_kst.columnconfigure(0,weight=1)
-    my_kst.columnconfigure(1,weight=1)
-    my_kst.columnconfigure(2,weight=1)
-    my_kst.columnconfigure(3,weight=1)
-    txt = scrolledtext.ScrolledText(my_kst,width=65,height=25)
-    txt.place(relx = 0.1, rely = 0.2)
+    frame1 = ttk.Frame(my_kst)
+    frame1.pack(side="top", pady=20)
+    button1 = ttk.Button(frame1, text="Hook", width=20)
+    button2 = ttk.Button(frame1, text="Unhook", width=20)
+    button3 = ttk.Button(frame1, text="In phím", width=20)
+    button4 = ttk.Button(frame1, text="Xóa", width=20)
+    button_list = [button1, button2, button3, button4]
+    for i in range(len(button_list)):
+        button_list[i].pack(side="left", padx=15)
+    frame2 = ttk.Frame(my_kst)
+    frame2.pack(side="top")
+    txt = scrolledtext.ScrolledText(frame2,width=50,height=25)
+    txt.focus()
+    txt.pack()
 
 def pcs_window():
     my_pcs = Toplevel(mainClient)
