@@ -14,7 +14,6 @@ def start_client():
     clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # host = '192.168.2.100'
     host = communicate.ipHost if communicate.ipHost else 'localhost'
-
     port = 9999
     clientsocket.connect((host, port))
     while True:
@@ -30,7 +29,7 @@ def start_client():
         if len(command) > 1 : parameter = command[1]
         
         if flag == "screenshot": receiveScreenShot.readImage(clientsocket)
-        elif flag == "saveimage": pass
+        elif flag == "saveimage": receiveScreenShot.saveImage(clientsocket)
         elif flag == "listprocess": receiveProcess.receiveProcess(clientsocket)
         elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
         elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)

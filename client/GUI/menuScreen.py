@@ -144,9 +144,11 @@ def notice3():
 
 def get_ip(entryBox):
     ip = entryBox.get()
+    communicate.status_connection = 1
     communicate.ipHost = ip
 
 def check_valid_ip(ip):
+    return True
     # Check if the IP contains only digits and dots
     return all(c.isdigit() or c == '.' for c in ip) 
 
