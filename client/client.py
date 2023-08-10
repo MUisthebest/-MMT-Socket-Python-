@@ -18,7 +18,11 @@ def start_client():
     port = 9999
     clientsocket.connect((host, port))
     while True:
-        command = input("Enter message to send to server: ")
+        # command = input("Enter message to send to server: ")
+        while True:
+            if communicate.command != '' : 
+                command = communicate.command
+                break
         clientsocket.send(command.encode('ascii'))
         command = list(map(str, command.split()))
         flag = command[0]
@@ -26,6 +30,7 @@ def start_client():
         if len(command) > 1 : parameter = command[1]
         
         if flag == "screenshot": receiveScreenShot.readImage(clientsocket)
+        elif flag == "saveimage": pass
         elif flag == "listprocess": receiveProcess.receiveProcess(clientsocket)
         elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
         elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)
@@ -35,6 +40,7 @@ def start_client():
             print('Received from server: ', data.decode('ascii'))
         if flag == 'QUIT':
             break
+        communicate.command = ''
     clientsocket.close()
     communicate.init()
 

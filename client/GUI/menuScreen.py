@@ -18,6 +18,8 @@ fontWord = None
 
 def click_button(s):
     communicate.command = s
+
+
     
 def kill_window(root):
     my_kll = Toplevel(root)
