@@ -5,8 +5,8 @@ from tkinter import font
 from tkinter import scrolledtext
 import os
 
-
 from app import App
+
 
 mainClient = Tk() 
 
@@ -16,6 +16,7 @@ fontWord = font.Font(family = "Times New Roman", size = 10)
 
 def click_screenshot(s):
     return s
+
 
     
 def kill_window(root):
