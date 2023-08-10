@@ -1,17 +1,20 @@
 from tkinter import filedialog
 from tkinter import Tk
 from PIL import Image 
+from GUI import menuScreen
+from GUI import communicate
 import struct
 import io
 
 tempImage_path = 'GUI/tempData/tempImage.png'
 
-def saveImage(img):
+def saveImage():
     root = Tk()
     root.withdraw()  # Hide the main window
     file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png"), ("All files", "*.*")])
-
+    
     if file_path:  # If a file path is provided
+        img = Image.open(tempImage_path)
         img.save(file_path)
         print(f"Screenshot saved to {file_path}")
     else:
@@ -29,6 +32,7 @@ def readImage(client_socket):
     img = Image.open(io.BytesIO(received_data))
     img.save(tempImage_path)
     print("Screenshot received successfully and loaded into PIL.Image object")
-    img.show()
+    menuScreen.displayImage(communicate.src_screen)
+    # img.show()
     # save = input("save?")
     # if (save == "y") : saveImage(img)

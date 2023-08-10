@@ -2,7 +2,9 @@ from tkinter import *
 from tkinter import scrolledtext
 from tkinter import font
 from tkinter import Toplevel, Label, Button, PhotoImage
+from PIL import Image, ImageTk
 import os
+import time
 try:
     from . import communicate
     from .define import *
@@ -44,17 +46,21 @@ def start_window(root):
     Button(my_sta, text = "Start", width = 8).place(x = 200, y = 10)
 
 def displayImage(my_scr):
-    click_button("screenshot")
     script_dir = os.path.dirname(__file__)
-    img_path = os.path.join(script_dir, "tempData/Screenshot.png")
-    img = PhotoImage(file = img_path)
+    img_path = os.path.join(script_dir, "tempData/tempImage.png")
 
-    img_width = img.width()
-    img_height = img.height()
+    # Open and resize the image using Pillow
+    new_width = 490
+    new_height = 450
+    with Image.open(img_path) as img:
+        img = img.resize((new_width, new_height))
 
-    label = Label(my_scr, image = img, width = 500, height = 450)
-    label.image = img
-    label.place(relx = 0.08, rely = 0.1 )
+    # Convert PIL image to PhotoImage
+    img_tk = ImageTk.PhotoImage(img)
+
+    label = Label(my_scr, image=img_tk, width=new_width, height=new_height)
+    label.image = img_tk  # this is to prevent garbage collection of the img_tk object
+    label.place(relx=0.08, rely=0.1)
 
 def scr_window():
     my_scr = Toplevel(mainClient)
@@ -62,6 +68,7 @@ def scr_window():
     my_scr.configure(bg = COLOUR_BACKGROUND)
     my_scr.title('Server Screen')
     my_scr.resizable(False, False)
+    communicate.src_screen = my_scr
 
     # script_dir = os.path.dirname(__file__)
     # img_path = os.path.join(script_dir, "tempData/tempImage.png")
@@ -77,7 +84,7 @@ def scr_window():
     label = Label(my_scr, width = 70, height= 30)
     label.place(relx = 0.08, rely = 0.1 )
 
-    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: displayImage(my_scr))
+    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: click_button("screenshot"))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8, command = lambda: click_button("saveimage"))
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )

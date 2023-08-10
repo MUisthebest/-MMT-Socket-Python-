@@ -15,7 +15,15 @@ def start_client():
     # host = '192.168.2.100'
     host = communicate.ipHost if communicate.ipHost else 'localhost'
     port = 9999
-    clientsocket.connect((host, port))
+    try:
+        clientsocket.connect((host, port))
+        communicate.status_connection = 2
+        print("Connection succesful")
+    except:
+        print("Failed to connect")
+        clientsocket.close()
+        communicate.init()
+        return False
     while True:
         # command = input("Enter message to send to server: ")
         while True:
@@ -29,7 +37,7 @@ def start_client():
         if len(command) > 1 : parameter = command[1]
         
         if flag == "screenshot": receiveScreenShot.readImage(clientsocket)
-        elif flag == "saveimage": receiveScreenShot.saveImage(clientsocket)
+        elif flag == "saveimage": receiveScreenShot.saveImage()
         elif flag == "listprocess": receiveProcess.receiveProcess(clientsocket)
         elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
         elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)
@@ -42,12 +50,10 @@ def start_client():
         communicate.command = ''
     clientsocket.close()
     communicate.init()
+    return True
 
 def run_client():
-    while communicate.command != "QUIT":
-        if communicate.status_connection == 1 : 
-            start_client()
-            break
+    while (communicate.command != "QUIT") and (communicate.status_connection != 1 or not(start_client())): pass
 
 if __name__ == "__main__":
     backend_thread = threading.Thread(target=run_client)
