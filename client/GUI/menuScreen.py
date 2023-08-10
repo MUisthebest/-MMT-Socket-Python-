@@ -1,8 +1,12 @@
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import font
+from tkinter import ttk
+import tkinter as tk
 from tkinter import Toplevel, Label, Button, PhotoImage
 from PIL import Image, ImageTk
+from tkinter.scrolledtext import ScrolledText
+
 import os
 import time
 try:
@@ -128,20 +132,41 @@ def pcs_window():
 
 def app_window():
     my_app = Toplevel(mainClient)
-    my_app.geometry("750x650")
+    my_app.geometry("750x500")
     my_app.configure(bg = COLOUR_BACKGROUND)
     my_app.title('process')
     my_app.resizable(False, False)
-    buton1 = Button(my_app,text = 'Kill',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, command = lambda: kill_window(my_app), font = fontWord,width = 4, height = 2).grid(column = 0, row = 20, sticky = N)
-    buton2 = Button(my_app,text = 'Xem',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 1, row = 20, sticky = N)
-    buton3 = Button(my_app,text = 'Xóa',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 4, height = 2).grid(column = 2, row = 20, sticky = N)
-    buton4 = Button(my_app,text = 'Start',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, command = lambda: start_window(my_app), font = fontWord,width = 4, height = 2).grid(column = 3, row = 20, sticky = N)
-    my_app.columnconfigure(0,weight=1)
-    my_app.columnconfigure(1,weight=1)
-    my_app.columnconfigure(2,weight=1)
-    my_app.columnconfigure(3,weight=1)
-    txt = scrolledtext.ScrolledText(my_app,width=40,height=20)
-    txt.place(relx = 0.2, rely = 0.2)
+    frame1 = ttk.Frame(my_app)
+    frame1.pack(side="top", pady=20)
+    button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: kill_window(frame1))
+    button2 = ttk.Button(frame1, text="Xem", width=20)
+    button3 = ttk.Button(frame1, text="Xóa", width=20)
+    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: start_window(frame1))
+    button_list = [button1, button2, button3, button4]
+    for i in range(len(button_list)):
+        button_list[i].pack(side="left", padx=15)
+    frame2 = ttk.Frame(my_app)
+    frame2.pack(side="top")
+    listbox_frame2 = tk.Listbox(frame2)
+    frame2 = tk.Frame(my_app)
+    scrolled_text = scrolledtext.ScrolledText(frame2,height =50)
+    # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
+    listbox_1 = tk.Listbox(scrolled_text,height =50)
+    listbox_2 = tk.Listbox(scrolled_text,height =50)
+    listbox_3= tk.Listbox(scrolled_text,height =50)
+    listbox_1.insert(tk.END, "Name Proccess")
+    listbox_2.insert(tk.END, "ID Proccess")
+    listbox_3.insert(tk.END, "Count Thread")
+    listbox_1.focus_set()
+    listbox_2.focus_set()
+    listbox_3.focus_set()
+    listbox_1.pack(side=tk.LEFT)
+    listbox_2.pack(side=tk.LEFT)
+    listbox_3.pack(side=tk.LEFT)
+    frame2.pack(side="top", pady=10)
+    scrolled_text.pack()
+    # Chạy chương trình
+    my_app.mainloop()
 
 
 
