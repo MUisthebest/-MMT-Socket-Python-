@@ -143,8 +143,7 @@ def notice3():
 
 def get_ip(entryBox):
     ip = entryBox.get()
-    print(ip)
-    return ip
+    communicate.command = ip
 
 def validate_input(char):
     # Allow only numbers and dots (for IP address)
