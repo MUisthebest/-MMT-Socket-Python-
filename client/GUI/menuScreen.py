@@ -194,6 +194,118 @@ def app_window():
     # Chạy chương trình
     my_app.mainloop()
 
+def on_combobox_changed(event):
+        selected_choice = combobox.get()
+        if selected_choice == choices[0]:
+            print('In')
+        elif selected_choice == choices[1]:
+            print('Lưu')
+        elif selected_choice == choices[2]:
+            print('Xóa')
+
+def print_string():
+        selected_option = combo_box.get()
+        print("In chuỗi:", selected_option)
+
+def save_string():
+        selected_option = combo_box.get()
+        # Lưu chuỗi vào file hoặc database
+        print("Lưu chuỗi:", selected_option)
+
+def delete_string():
+        selected_option = combo_box.get()
+        # Xóa chuỗi khỏi file hoặc database
+        print("Xóa chuỗi:", selected_option)
+
+ 
+def rgt_window():
+    my_rgt = Toplevel(mainClient)
+    my_rgt.geometry("660x500")
+    my_rgt.configure(bg = COLOUR_BACKGROUND)
+    my_rgt.title('Registry')
+    my_rgt.resizable(False, False) 
+    # Tạo frame 1
+    frame1 = ttk.Frame(my_rgt)
+    frame1.pack(side="top")
+
+    textbox1 = ttk.Entry(frame1)
+    textbox1.pack(side="left", padx=10, pady=10)
+    textbox1.configure(width = 50) 
+
+    button_browser = ttk.Button(frame1, text="Browser")
+    button_browser.pack(side="left", padx=10, pady=10)
+
+    # Tạo frame 2
+    frame2 = ttk.Frame(my_rgt)
+    frame2.pack(side="top")
+
+    txt = scrolledtext.ScrolledText(frame2,height = 8)
+    txt.pack(side="left")
+    txt.configure(width = 37) 
+
+    button_send_content = ttk.Button(frame2, text="Gởi nội dung")
+    button_send_content.pack(side="left", padx=10, pady=10)
+
+
+    # Tạo frame 3
+    frame3 = ttk.Frame(my_rgt)
+    frame3.pack(side="top")
+
+    label_text = ttk.Label(frame3, text="Sửa Giá Trị Trực Tiếp ------------------------------------------------------------")
+    label_text.pack(padx=2, pady=10)
+
+
+    # Tạo frame 4
+
+    frame5 = ttk.Frame(my_rgt)
+    frame5.pack(side="top")
+
+    # Tạo combobox
+    combobox = tk.StringVar(frame5)
+    combobox.set("Chọn tác vụ")  # Giá trị mặc định
+
+    # Tạo danh sách các lựa chọn
+    choices = ["In      ", "Lưu      ", "Xóa      "]
+
+
+    # Hàm xử lý khi người dùng thay đổi giá trị của combobox
+
+
+    # Tạo combobox và gắn sự kiện cho nó
+    combobox_widget = tk.OptionMenu(frame5 , combobox, *choices, command=on_combobox_changed)
+    combobox_widget.configure(width = 62) 
+    combobox_widget.pack(pady=10)
+
+    # Tạo Frame 5
+    frame5 = ttk.Frame(my_rgt)
+    frame5.pack(side="top", pady=10)
+
+    # Thêm Textbox vào Frame 1
+    textbox1 = ttk.Entry(frame5)
+    textbox1.pack(padx=10, pady=10)
+    textbox1.configure(width = 66) 
+
+    # Tạo Frame 6
+    frame6 = ttk.Frame(my_rgt)
+    frame6.pack(side="top", pady=10)
+
+    # Thêm Textbox vào Frame 2 (cách đều nhau)
+    textbox2 = ttk.Entry(frame6)
+    textbox3 = ttk.Entry(frame6)
+    combobox = ttk.Combobox(frame6)
+
+    textbox2.grid(row=0, column=0, padx=(10,5), pady=5)
+    textbox3.grid(row=0, column=1, padx=(5,10), pady=5)
+    combobox.grid(row=0,column=3,pady=(7))
+
+    # Tạo Frame 7
+    frame7 = ttk.Frame(my_rgt)
+    frame7.pack(side="top", pady=5)
+        
+    listbox = tk.Listbox(frame7)
+    listbox.configure(width = 67, height = 5) 
+    listbox.pack()
+
 
 
 #Khi nào merge được connection sẽ dùng để check kết nối   
