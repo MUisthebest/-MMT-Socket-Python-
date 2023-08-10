@@ -103,10 +103,10 @@ def kst_window():
     my_kst.resizable(False, False)
     frame1 = ttk.Frame(my_kst)
     frame1.pack(side="top", pady=20)
-    button1 = ttk.Button(frame1, text="Hook", width=20)
-    button2 = ttk.Button(frame1, text="Unhook", width=20)
-    button3 = ttk.Button(frame1, text="In phím", width=20)
-    button4 = ttk.Button(frame1, text="Xóa", width=20)
+    button1 = ttk.Button(frame1, text="Hook", width=20, command=lambda: click_button("hook"))
+    button2 = ttk.Button(frame1, text="Unhook", width=20, command=lambda: click_button("unhook"))
+    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: click_button("sendkeylogger"))
+    button4 = ttk.Button(frame1, text="Xóa", width=20, command=lambda: click_button("deletecontentkeylogger"))
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
