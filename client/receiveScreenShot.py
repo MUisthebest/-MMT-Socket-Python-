@@ -4,6 +4,8 @@ from PIL import Image
 import struct
 import io
 
+tempImage_path = 'GUI/tempData/tempImage.png'
+
 def saveImage(img):
     root = Tk()
     root.withdraw()  # Hide the main window
@@ -25,8 +27,8 @@ def readImage(client_socket):
         received_data += data
 
     img = Image.open(io.BytesIO(received_data))
-
+    img.save(tempImage_path)
     print("Screenshot received successfully and loaded into PIL.Image object")
     img.show()
-    save = input("save?")
-    if (save == "y") : saveImage(img)
+    # save = input("save?")
+    # if (save == "y") : saveImage(img)
