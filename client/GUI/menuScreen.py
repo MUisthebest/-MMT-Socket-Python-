@@ -18,6 +18,7 @@ fontWord = None
 
 def click_button(s):
     communicate.command = s
+    print(s)
 
 
     
