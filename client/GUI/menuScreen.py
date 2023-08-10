@@ -53,7 +53,7 @@ def scr_window():
     my_scr.resizable(False, False)
 
     script_dir = os.path.dirname(__file__)
-    img_path = os.path.join(script_dir, "fish.png")
+    img_path = os.path.join(script_dir, "tempData/tempImage.png")
     img = PhotoImage(file = img_path)
 
     img_width = img.width()
