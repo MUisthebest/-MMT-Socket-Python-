@@ -1,0 +1,3 @@
+ip = ''
+command = '' 
+connection = False

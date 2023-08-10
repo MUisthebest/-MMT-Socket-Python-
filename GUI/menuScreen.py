@@ -1,21 +1,22 @@
 from tkinter import *
-from define import *
 from tkinter import scrolledtext
 from tkinter import font
 from tkinter import scrolledtext
 import os
+try:
+    from . import communicate
+    from .define import *
+    from .app import App
+except:
+    import communicate
+    from define import *
+    from app import App
 
-from app import App
-
-
-mainClient = Tk() 
-
-app = App(mainClient)
-
-fontWord = font.Font(family = "Times New Roman", size = 10)
+mainclient = None
+fontWord = None
 
 def click_screenshot(s):
-    return s
+    communicate.command = s
 
 
     
@@ -210,5 +211,12 @@ def draw ():
     buttonExit.grid(row = 3, column = 2)
     mainClient.mainloop()
 
-if __name__ == '__main__':
+def run_GUI():
+    global mainClient, fontWord
+    mainClient = Tk() 
+    app = App(mainClient)
+    fontWord = font.Font(family = "Times New Roman", size = 10)
     draw()
+
+if __name__ == '__main__':
+    run_GUI()

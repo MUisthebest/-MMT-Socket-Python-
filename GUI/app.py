@@ -1,4 +1,7 @@
-from define import *
+try:
+    from .define import *
+except:
+    from define import *
 
 class App():
     def __init__(self, ROOT) -> None:

@@ -3,6 +3,11 @@ from PIL import Image
 import receiveScreenShot
 import receiveRunningApp
 import receiveProcess
+import threading
+from GUI import communicate
+from GUI import menuScreen
+from multiprocessing import Process
+
 
 
 def start_client():
@@ -31,5 +36,13 @@ def start_client():
             break
     clientsocket.close()
 
+def test():
+    while True:
+        # print("hello")
+        if communicate.command != "" : print(communicate.command)
+        communicate.command = ""
+
 if __name__ == "__main__":
-    start_client()
+    backend_thread = threading.Thread(target=test, args=())
+    backend_thread.start()
+    menuScreen.run_GUI()
