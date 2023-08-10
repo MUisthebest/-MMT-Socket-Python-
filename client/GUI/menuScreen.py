@@ -12,10 +12,11 @@ except:
     from define import *
     from app import App
 
+
 mainclient = None
 fontWord = None
 
-def click_screenshot(s):
+def click_button(s):
     communicate.command = s
 
 
@@ -52,7 +53,7 @@ def scr_window():
     my_scr.resizable(False, False)
     label = Label(my_scr,text = "",width = 70, height = 30)
     label.place(relx = 0.08, rely = 0.1 )
-    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = click_screenshot("screenshot"))
+    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = click_button("screenshot"))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8)
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
@@ -143,9 +144,11 @@ def notice3():
 
 def get_ip(entryBox):
     ip = entryBox.get()
-    communicate.command = ip
+    communicate.ipHost = ip
+    communicate.status_connection = 1
 
 def validate_input(char):
+    return True
     # Allow only numbers and dots (for IP address)
     if char.isdigit() or char == '.':
         return True
@@ -210,12 +213,27 @@ def draw ():
     buttonExit.grid(row = 3, column = 2)
     mainClient.mainloop()
 
+
+def on_closing():
+    # This function will be executed when the close button is clicked
+    communicate.command = "QUIT"
+
+    # You can add any custom cleanup operations or other logic here
+
+    # Close the window
+    mainClient.quit()  # Quit the mainloop
+
+
 def run_GUI():
     global mainClient, fontWord
     mainClient = Tk() 
     app = App(mainClient)
     fontWord = font.Font(family = "Times New Roman", size = 10)
+    mainClient.protocol("WM_DELETE_WINDOW", on_closing)
     draw()
+    # def is_mainClient_open():
+    # print(is_mainClient_open())
+    
 
 if __name__ == '__main__':
     run_GUI()

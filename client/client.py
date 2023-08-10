@@ -36,15 +36,17 @@ def start_client():
         if flag == 'QUIT':
             break
     clientsocket.close()
+    communicate.init()
 
-def test():
-    while True:
-        # print("hello")
-        if communicate.command != "" : print(communicate.command)
-        communicate.command = ""
+def run_client():
+    while communicate.command != "QUIT":
+        if communicate.status_connection == 1 : 
+            start_client()
+            break
 
 if __name__ == "__main__":
-    # backend_thread = threading.Thread(target=test, args=())
-    # backend_thread.start()
-    # menuScreen.run_GUI()
-    start_client()
+    backend_thread = threading.Thread(target=run_client)
+    backend_thread.start()
+    menuScreen.run_GUI()
+    
+    # start_client()
