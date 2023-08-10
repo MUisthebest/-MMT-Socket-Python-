@@ -18,7 +18,6 @@ fontWord = None
 
 def click_button(s):
     communicate.command = s
-    print(s)
 
 
     
@@ -54,7 +53,7 @@ def scr_window():
     my_scr.resizable(False, False)
     label = Label(my_scr,text = "",width = 70, height = 30)
     label.place(relx = 0.08, rely = 0.1 )
-    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = click_button("screenshot"))
+    buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: click_button("screenshot"))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8)
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
@@ -146,7 +145,10 @@ def notice3():
 def get_ip(entryBox):
     ip = entryBox.get()
     communicate.ipHost = ip
-    communicate.status_connection = 1
+
+def check_valid_ip(ip):
+    # Check if the IP contains only digits and dots
+    return all(c.isdigit() or c == '.' for c in ip) 
 
 def validate_input(char):
     return True
@@ -193,7 +195,7 @@ def draw ():
     mainClient.rowconfigure(2, weight = 1)
     mainClient.rowconfigure(3, weight = 1)
 
-    entryBox = Entry(mainClient, bg = "#E9F4EE", fg = "#000000", font = fontWord, justify = LEFT, bd = 15, width = 82, validate = "key", validatecommand=(mainClient.register(validate_input), "%S"))
+    entryBox = Entry(mainClient, bg = "#E9F4EE", fg = "#000000", font = fontWord, justify = LEFT, bd = 15, width = 82) #validate = "key", validatecommand=(mainClient.register(validate_input), "%S")
     entryBox.grid(row = 0, column = 0, columnspan = 2, sticky = E)
 
     buttonConnect = Button(mainClient, text = "Connect", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 50, pady = 15, command=lambda: get_ip(entryBox))
