@@ -1,3 +1,3 @@
-ip = ''
+ipHost = ''
 command = '' 
 connection = False
