@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import font
-from tkinter import scrolledtext
+from tkinter import Toplevel, Label, Button, PhotoImage
 import os
 try:
     from . import communicate
@@ -49,10 +49,21 @@ def scr_window():
     my_scr.configure(bg = COLOUR_BACKGROUND)
     my_scr.title('View Screen')
     my_scr.resizable(False, False)
-    label = Label(my_scr,text = "",width = 70, height = 30)
+
+    script_dir = os.path.dirname(__file__)
+    img_path = os.path.join(script_dir, "fish.png")
+    img = PhotoImage(file = img_path)
+
+    img_width = img.width()
+    img_height = img.height()
+
+    label = Label(my_scr, image = img, width = img_width, height = img_height)
+    label.image = img
     label.place(relx = 0.08, rely = 0.1 )
+
+
     buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: click_button("screenshot"))
-    buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8)
+    buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8, command = lambda: click_button("saveimage"))
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
 
