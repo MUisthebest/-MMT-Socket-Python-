@@ -13,7 +13,8 @@ from multiprocessing import Process
 def start_client():
     clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # host = '192.168.2.100'
-    host = 'localhost'
+    host = communicate.ipHost if communicate.ipHost else 'localhost'
+
     port = 9999
     clientsocket.connect((host, port))
     while True:
@@ -43,6 +44,7 @@ def test():
         communicate.command = ""
 
 if __name__ == "__main__":
-    backend_thread = threading.Thread(target=test, args=())
-    backend_thread.start()
-    menuScreen.run_GUI()
+    # backend_thread = threading.Thread(target=test, args=())
+    # backend_thread.start()
+    # menuScreen.run_GUI()
+    start_client()
