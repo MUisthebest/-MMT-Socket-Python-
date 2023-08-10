@@ -134,7 +134,7 @@ def app_window():
     my_app = Toplevel(mainClient)
     my_app.geometry("750x500")
     my_app.configure(bg = COLOUR_BACKGROUND)
-    my_app.title('process')
+    my_app.title('listApp')
     my_app.resizable(False, False)
     frame1 = ttk.Frame(my_app)
     frame1.pack(side="top", pady=20)
