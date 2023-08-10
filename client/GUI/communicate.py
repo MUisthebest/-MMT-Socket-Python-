@@ -6,4 +6,4 @@ def init():
     global ipHost, command, status_connection
     ipHost = ''
     command = '' 
-    status_connection = 0  
+    status_connection = 0
