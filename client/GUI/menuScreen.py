@@ -41,18 +41,18 @@ def start_window(root):
     txt = Entry(my_sta,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_sta, text="Start",width=8).place(x=200, y=10)
+    Button(my_sta, text = "Start", width = 8).place(x = 200, y = 10)
 
 def displayImage(my_scr):
     click_button("screenshot")
     script_dir = os.path.dirname(__file__)
-    img_path = os.path.join(script_dir, "tempData/tempImage.png")
+    img_path = os.path.join(script_dir, "tempData/Screenshot.png")
     img = PhotoImage(file = img_path)
 
     img_width = img.width()
     img_height = img.height()
 
-    label = Label(my_scr, image = img, width = img_width, height = img_height)
+    label = Label(my_scr, image = img, width = 500, height = 450)
     label.image = img
     label.place(relx = 0.08, rely = 0.1 )
 
@@ -60,7 +60,7 @@ def scr_window():
     my_scr = Toplevel(mainClient)
     my_scr.geometry("700x600")
     my_scr.configure(bg = COLOUR_BACKGROUND)
-    my_scr.title('View Screen')
+    my_scr.title('Server Screen')
     my_scr.resizable(False, False)
 
     # script_dir = os.path.dirname(__file__)
@@ -74,8 +74,8 @@ def scr_window():
     # label.image = img
     # label.place(relx = 0.08, rely = 0.1 )
 
-    label = Label(my_scr, width = 70, height= 70)
-
+    label = Label(my_scr, width = 70, height= 30)
+    label.place(relx = 0.08, rely = 0.1 )
 
     buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: displayImage(my_scr))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8, command = lambda: click_button("saveimage"))
@@ -100,8 +100,6 @@ def kst_window():
     my_kst.columnconfigure(3,weight=1)
     txt = scrolledtext.ScrolledText(my_kst,width=65,height=25)
     txt.place(relx = 0.1, rely = 0.2)
-
-
 
 def pcs_window():
     my_pcs = Toplevel(mainClient)
