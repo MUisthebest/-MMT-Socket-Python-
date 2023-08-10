@@ -140,6 +140,17 @@ def notice3():
     my_not3.title('')
     l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
+def get_ip(entryBox):
+    ip = entryBox.get()
+    print(ip)
+    return ip
+
+def validate_input(char):
+    # Allow only numbers and dots (for IP address)
+    if char.isdigit() or char == '.':
+        return True
+    else:
+        return False
 
 
 # Điều kiện của KILL
@@ -177,9 +188,11 @@ def draw ():
     mainClient.rowconfigure(1, weight = 1)
     mainClient.rowconfigure(2, weight = 1)
     mainClient.rowconfigure(3, weight = 1)
-    entryBox = Entry(mainClient, bg = "#E9F4EE", fg = "#000000", font = fontWord, justify = LEFT, bd = 15, width = 82)
+
+    entryBox = Entry(mainClient, bg = "#E9F4EE", fg = "#000000", font = fontWord, justify = LEFT, bd = 15, width = 82, validate = "key", validatecommand=(mainClient.register(validate_input), "%S"))
     entryBox.grid(row = 0, column = 0, columnspan = 2, sticky = E)
-    buttonConnect = Button(mainClient, text = "Connect", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 50, pady = 15)
+
+    buttonConnect = Button(mainClient, text = "Connect", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 50, pady = 15, command=lambda: get_ip(entryBox))
     buttonConnect.grid(row = 0, column = 2)
     buttonProcess = Button(mainClient, text = "Process Running", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: pcs_window(), padx = 50, pady = 150)
     buttonProcess.grid(row = 1, column = 0, rowspan = 3)
