@@ -65,8 +65,37 @@ def displayImage(my_scr):
     label = Label(my_scr, image=img_tk, width=new_width, height=new_height)
     label.image = img_tk  # this is to prevent garbage collection of the img_tk object
     label.place(relx=0.08, rely=0.1)
+    
+#Khi nào merge được connection sẽ dùng để check kết nối   
+def notice1():
+    my_not1 = Toplevel(mainClient)
+    my_not1.geometry("250x250")
+    my_not1.configure(bg = COLOUR_BACKGROUND)
+    my_not1.title('')
+    l1 = Label(my_not1,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND, fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+
+    
+def notice2():
+    my_not2 = Toplevel(mainClient)
+    my_not2.geometry("250x250")
+    my_not2.configure(bg = COLOUR_BACKGROUND)
+    my_not2.title('')
+    l1 = Label(my_not2,text = 'Lỗi kết nối đến server',bg = COLOUR_BACKGROUND, fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+
+
+def notice3():
+    my_not3 = Toplevel(mainClient)
+    my_not3.geometry("250x250")
+    my_not3.configure(bg = COLOUR_BACKGROUND)
+    my_not3.title('')
+    l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 def scr_window():
+   #if communicate.status_connection == 0:
+   #   notice1()
+   #return
     my_scr = Toplevel(mainClient)
     my_scr.geometry("700x600")
     my_scr.configure(bg = COLOUR_BACKGROUND)
@@ -96,6 +125,9 @@ def scr_window():
 
 
 def kst_window():
+   #if communicate.status_connection == 0:
+   #   notice1()
+   #return
     my_kst = Toplevel(mainClient)
     my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
@@ -116,6 +148,9 @@ def kst_window():
     txt.pack()
 
 def pcs_window():
+   #if communicate.status_connection == 0:
+   #   notice1()
+   #return 
     my_pcs = Toplevel(mainClient)
     my_pcs.geometry("750x500")
     my_pcs.configure(bg = COLOUR_BACKGROUND)
@@ -156,6 +191,9 @@ def pcs_window():
 
 
 def app_window():
+   #if communicate.status_connection == 0:
+   #   notice1()
+   #return  
     my_app = Toplevel(mainClient)
     my_app.geometry("750x500")
     my_app.configure(bg = COLOUR_BACKGROUND)
@@ -218,6 +256,9 @@ def delete_string():
 
  
 def rgt_window():
+   #if communicate.status_connection == 0:
+   #   notice1()
+   #return
     my_rgt = Toplevel(mainClient)
     my_rgt.geometry("550x550")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
@@ -319,32 +360,6 @@ def rgt_window():
     listbox.pack()
 
 
-
-#Khi nào merge được connection sẽ dùng để check kết nối   
-def notice1():
-    my_not1 = Toplevel(mainClient)
-    my_not1.geometry("250x250")
-    my_not1.configure(bg = COLOUR_BACKGROUND)
-    my_not1.title('')
-    l1 = Label(my_not1,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
-
-
-    
-def notice2():
-    my_not2 = Toplevel(mainClient)
-    my_not2.geometry("250x250")
-    my_not2.configure(bg = COLOUR_BACKGROUND)
-    my_not2.title('')
-    l1 = Label(my_not2,text = 'Lỗi kết nối đến server',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
-
-
-
-def notice3():
-    my_not3 = Toplevel(mainClient)
-    my_not3.geometry("250x250")
-    my_not3.configure(bg = COLOUR_BACKGROUND)
-    my_not3.title('')
-    l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 def get_ip(entryBox):
     ip = entryBox.get()
