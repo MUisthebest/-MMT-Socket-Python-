@@ -231,6 +231,14 @@ def app_window():
     # Chạy chương trình
     my_app.mainloop()
 
+def do_kill(s,root):
+    click_button(s)
+    kill_window(root)        
+
+def do_start(s,root):
+    click_button(s)
+    start_window(root)
+
 def on_combobox_changed(event):
         selected_choice = combobox.get()
         if selected_choice == choices[0]:
