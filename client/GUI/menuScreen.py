@@ -118,8 +118,10 @@ def do_start(s,root,listbox_1,listbox_2,listbox_3):
 
 def do_view(s,root,listbox_1,listbox_2,listbox_3):
     click_button(s)
+    script_dir = os.path.dirname(__file__)
+    img_path = os.path.join(script_dir, "Data.txt")
     if communicate.command ==  "Xem":
-       with open('proccessData.txt', 'r') as file:
+       with open(img_path, 'r') as file:
           lines = file.readlines()
           for line in lines:
             values = line.strip().split(',')
