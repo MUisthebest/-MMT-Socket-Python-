@@ -220,13 +220,13 @@ def delete_string():
  
 def rgt_window():
     my_rgt = Toplevel(mainClient)
-    my_rgt.geometry("660x500")
+    my_rgt.geometry("550x550")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
     my_rgt.title('Registry')
     my_rgt.resizable(False, False) 
     # Tạo frame 1
     frame1 = ttk.Frame(my_rgt)
-    frame1.pack(side="top")
+    frame1.pack(side="top", pady=5)
 
     textbox1 = ttk.Entry(frame1)
     textbox1.pack(side="left", padx=10, pady=10)
@@ -237,48 +237,49 @@ def rgt_window():
 
     # Tạo frame 2
     frame2 = ttk.Frame(my_rgt)
-    frame2.pack(side="top")
+    frame2.pack(side="top",pady= 5)
 
     txt = scrolledtext.ScrolledText(frame2,height = 8)
     txt.pack(side="left")
-    txt.configure(width = 37) 
+    txt.configure(width = 38) 
 
-    button_send_content = ttk.Button(frame2, text="Gởi nội dung")
+    button_send_content = ttk.Button(frame2, text="Gửi nội dung")
     button_send_content.pack(side="left", padx=10, pady=10)
-
+    
 
     # Tạo frame 3
     frame3 = ttk.Frame(my_rgt)
     frame3.pack(side="top")
 
-    label_text = ttk.Label(frame3, text="Sửa Giá Trị Trực Tiếp ------------------------------------------------------------")
-    label_text.pack(padx=2, pady=10)
-
+    label_text = ttk.Label(frame3, text="Sửa Giá Trị Trực Tiếp --------------------------------------------------------------")
+    label_text.pack(padx=2, pady=15)
+    
 
     # Tạo frame 4
 
-    frame5 = ttk.Frame(my_rgt)
-    frame5.pack(side="top")
+    frame4 = ttk.Frame(my_rgt)
+    frame4.pack(side="top",pady=5)
 
     # Tạo combobox
-    combobox = tk.StringVar(frame5)
+    combobox = tk.StringVar(frame4)
     combobox.set("Chọn tác vụ")  # Giá trị mặc định
-
+        
     # Tạo danh sách các lựa chọn
-    choices = ["In      ", "Lưu      ", "Xóa      "]
+    choices = ["Get Value      ", "Creat Key      ", "Delete Value      ","Create Key      ","Delete Key      "]
 
+    
 
     # Hàm xử lý khi người dùng thay đổi giá trị của combobox
 
 
     # Tạo combobox và gắn sự kiện cho nó
-    combobox_widget = tk.OptionMenu(frame5 , combobox, *choices, command=on_combobox_changed)
-    combobox_widget.configure(width = 62) 
+    combobox_widget = tk.OptionMenu(frame4 , combobox, *choices, command=on_combobox_changed)
+    combobox_widget.configure(width = 63) 
     combobox_widget.pack(pady=10)
 
     # Tạo Frame 5
     frame5 = ttk.Frame(my_rgt)
-    frame5.pack(side="top", pady=10)
+    frame5.pack(side="top", pady=5)
 
     # Thêm Textbox vào Frame 1
     textbox1 = ttk.Entry(frame5)
@@ -287,23 +288,35 @@ def rgt_window():
 
     # Tạo Frame 6
     frame6 = ttk.Frame(my_rgt)
-    frame6.pack(side="top", pady=10)
+    frame6.pack(side="top", pady=5)
 
     # Thêm Textbox vào Frame 2 (cách đều nhau)
     textbox2 = ttk.Entry(frame6)
     textbox3 = ttk.Entry(frame6)
-    combobox = ttk.Combobox(frame6)
+    combobox = tk.StringVar(frame6)
+    textbox2.pack(side="left", padx=10)
+    textbox3.pack(side="left", padx=10)
+    combobox.set("Chọn tác vụ")  # Giá trị mặc định
 
-    textbox2.grid(row=0, column=0, padx=(10,5), pady=5)
-    textbox3.grid(row=0, column=1, padx=(5,10), pady=5)
-    combobox.grid(row=0,column=3,pady=(7))
+    # Tạo danh sách các lựa chọn
+    choices = ["String      ", "Binary    ", "DWORD      ","QWORD     ","Mute String   "]
+
+
+    # Hàm xử lý khi người dùng thay đổi giá trị của combobox
+
+
+    # Tạo combobox và gắn sự kiện cho nó
+    combobox_widget = tk.OptionMenu(frame6 , combobox, *choices, command=on_combobox_changed)
+    combobox_widget.configure(width = 10) 
+    combobox_widget.pack(side="left", padx=10)
+
 
     # Tạo Frame 7
     frame7 = ttk.Frame(my_rgt)
     frame7.pack(side="top", pady=5)
         
     listbox = tk.Listbox(frame7)
-    listbox.configure(width = 67, height = 5) 
+    listbox.configure(width = 69, height = 8) 
     listbox.pack()
 
 
@@ -402,7 +415,7 @@ def draw ():
     buttonTurnOff.grid(row = 2, column = 1, sticky = W)
     buttonCap = Button(mainClient, text = "Print\n\nScreen", font = fontWord, width = 15, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: scr_window(), padx = 10, pady = 33)
     buttonCap.grid(row = 2, column = 1, sticky = E)
-    buttonRegistry = Button(mainClient, text = "Fix Registry", font = fontWord, width = 26, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 20, pady = 33)
+    buttonRegistry = Button(mainClient, text = "Fix Registry", font = fontWord, width = 26, bg = COLOUR_BUTTON, fg = COLOUR_FONT, command = lambda: rgt_window(), padx = 20, pady = 33)
     buttonRegistry.grid(row = 3, column = 1, sticky = 'EW')
     buttonKeyStroke = Button(mainClient, text = "Keystroke", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: kst_window(), padx = 50, pady = 95)
     buttonKeyStroke.grid(row = 1, column = 2, rowspan = 2)
