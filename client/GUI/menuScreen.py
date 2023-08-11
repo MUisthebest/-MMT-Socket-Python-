@@ -22,12 +22,71 @@ except:
 mainclient = None
 fontWord = None
 
+
+class MyStruct:
+    def __init__(self, string1, string2, string3):
+        self.string1 = string1
+        self.string2 = string2
+        self.string3 = string3
+
+pcs_list = []
+app_list = []
+
+   
+
 def click_button(s):
     communicate.command = s
 
+# Điều kiện của KILL
+
+def notice4(root):
+    my_not4 = Toplevel(root)
+    my_not4.geometry("250x250")
+    my_not4.configure(bg = COLOUR_BACKGROUND)
+    my_not4.title('')
+    l1 = Label(my_not4,text = 'Đã diệt proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+def notice5(root):
+    my_not5 = Toplevel(root)
+    my_not5.geometry("250x250")
+    my_not5.configure(bg = COLOUR_BACKGROUND)
+    my_not5.title('')
+    l1 = Label(my_not5,text = 'Không tồn tại proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+# Điều kiện của Start
+
+def notice6(root):
+    my_not6 = Toplevel(root)
+    my_not6.geometry("250x250")
+    my_not6.configure(bg = COLOUR_BACKGROUND)
+    my_not6.title('')
+    l1 = Label(my_not6,text = 'Đã bật proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+
+def kill(root,listbox_1,listbox_2,listbox_3,txt):
+    if listbox_1.size() == 0:
+        return
+    get_id = txt.get()
+    items = listbox_1.get(1, tk.END)
+    for item in items:
+       if get_id == item:
+           notice4(root)
+           index = items.index(item)
+           listbox_1.delete(index+1)
+           listbox_2.delete(index+1)
+           listbox_3.delete(index+1)
+           
+def start(listbox_1,listbox_2,listbox_3,txt):
+    if listbox_1.size() == 0:
+         return
+    get_id = txt.get()
+    if get_id == "Haaland":
+        listbox_1.insert(tk.END,get_id)
+        listbox_2.insert(tk.END,get_id)
+        listbox_3.insert(tk.END,get_id)
 
     
-def kill_window(root):
+def kill_window(root,listbox_1,listbox_2,listbox_3):
     my_kll = Toplevel(root)
     my_kll.geometry("280x60")
     my_kll.configure(bg = COLOUR_BACKGROUND)
@@ -35,11 +94,11 @@ def kill_window(root):
     txt = Entry(my_kll,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_kll, text="Kill",width=8).place(x=200, y=10)
+    Button(my_kll, text="Kill",width=8,command = lambda: kill(root,listbox_1,listbox_2,listbox_3,txt)).place(x=200, y=10)
 
     
     
-def start_window(root):
+def start_window(root,listbox_1,listbox_2,listbox_3):
     my_sta = Toplevel(root)
     my_sta.geometry("280x60")
     my_sta.configure(bg = COLOUR_BACKGROUND)
@@ -47,8 +106,37 @@ def start_window(root):
     txt = Entry(my_sta,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_sta, text = "Start", width = 8).place(x = 200, y = 10)
+    Button(my_sta, text = "Start", width = 8,command = lambda: start(listbox_1,listbox_2,listbox_3,txt)).place(x = 200, y = 10)
 
+def do_kill(s,root,listbox_1,listbox_2,listbox_3):
+    click_button(s)
+    kill_window(root,listbox_1,listbox_2,listbox_3)        
+
+def do_start(s,root,listbox_1,listbox_2,listbox_3):
+    click_button(s)
+    start_window(root,listbox_1,listbox_2,listbox_3)
+
+def do_view(s,root,listbox_1,listbox_2,listbox_3):
+    click_button(s)
+    if communicate.command ==  "Xem":
+       with open('proccessData.txt', 'r') as file:
+          lines = file.readlines()
+          for line in lines:
+            values = line.strip().split(',')
+            if len(values) == 3:
+               my_struct = MyStruct(values[0], values[1], values[2])
+               pcs_list.append(my_struct)
+               listbox_1.insert(tk.END,my_struct.string1)
+               listbox_2.insert(tk.END,my_struct.string2)
+               listbox_3.insert(tk.END,my_struct.string3)
+
+def do_clear(s,root,listbox_1,listbox_2,listbox_3):
+    click_button(s)
+    listbox_1.delete(1, tk.END)
+    listbox_2.delete(1, tk.END)
+    listbox_3.delete(1, tk.END)
+    
+    
 def displayImage(my_scr):
     script_dir = os.path.dirname(__file__)
     img_path = os.path.join(script_dir, "tempData/tempImage.png")
@@ -65,14 +153,14 @@ def displayImage(my_scr):
     label = Label(my_scr, image=img_tk, width=new_width, height=new_height)
     label.image = img_tk  # this is to prevent garbage collection of the img_tk object
     label.place(relx=0.08, rely=0.1)
-    
+
 #Khi nào merge được connection sẽ dùng để check kết nối   
 def notice1():
     my_not1 = Toplevel(mainClient)
     my_not1.geometry("250x250")
     my_not1.configure(bg = COLOUR_BACKGROUND)
     my_not1.title('')
-    l1 = Label(my_not1,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND, fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    l1 = Label(my_not1,text = 'Chưa kết nối đến server',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
     
@@ -81,7 +169,7 @@ def notice2():
     my_not2.geometry("250x250")
     my_not2.configure(bg = COLOUR_BACKGROUND)
     my_not2.title('')
-    l1 = Label(my_not2,text = 'Lỗi kết nối đến server',bg = COLOUR_BACKGROUND, fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    l1 = Label(my_not2,text = 'Lỗi kết nối đến server',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
 
@@ -90,12 +178,13 @@ def notice3():
     my_not3.geometry("250x250")
     my_not3.configure(bg = COLOUR_BACKGROUND)
     my_not3.title('')
-    l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)    
 
 def scr_window():
-   #if communicate.status_connection == 0:
-   #   notice1()
-   #return
+    #if communicate.status_connection == 0:
+    #    notice1()
+    #    return
+    notice3()
     my_scr = Toplevel(mainClient)
     my_scr.geometry("700x600")
     my_scr.configure(bg = COLOUR_BACKGROUND)
@@ -103,16 +192,16 @@ def scr_window():
     my_scr.resizable(False, False)
     communicate.src_screen = my_scr
 
-    # script_dir = os.path.dirname(__file__)
-    # img_path = os.path.join(script_dir, "tempData/tempImage.png")
-    # img = PhotoImage(file = img_path)
+    script_dir = os.path.dirname(__file__)
+    img_path = os.path.join(script_dir, "tempData/tempImage.png")
+    img = PhotoImage(file = img_path)
 
-    # img_width = img.width()
-    # img_height = img.height()
+    img_width = img.width()
+    img_height = img.height()
 
-    # label = Label(my_scr, image = img, width = img_width, height = img_height)
-    # label.image = img
-    # label.place(relx = 0.08, rely = 0.1 )
+    label = Label(my_scr, image = img, width = img_width, height = img_height)
+    label.image = img
+    label.place(relx = 0.08, rely = 0.1 )
 
     label = Label(my_scr, width = 70, height= 30)
     label.place(relx = 0.08, rely = 0.1 )
@@ -125,9 +214,10 @@ def scr_window():
 
 
 def kst_window():
-   #if communicate.status_connection == 0:
-   #   notice1()
-   #return
+    #if communicate.status_connection == 0:
+    #   notice1()
+    #return
+    notice3()
     my_kst = Toplevel(mainClient)
     my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
@@ -148,9 +238,9 @@ def kst_window():
     txt.pack()
 
 def pcs_window():
-   #if communicate.status_connection == 0:
-   #   notice1()
-   #return 
+    #if communicate.status_connection == 0:
+    #   notice1()
+    #return
     my_pcs = Toplevel(mainClient)
     my_pcs.geometry("750x500")
     my_pcs.configure(bg = COLOUR_BACKGROUND)
@@ -158,24 +248,18 @@ def pcs_window():
     my_pcs.resizable(False, False)
     frame1 = ttk.Frame(my_pcs)
     frame1.pack(side="top", pady=20)
-    button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: kill_window(frame1))
-    button2 = ttk.Button(frame1, text="Xem", width=20)
-    button3 = ttk.Button(frame1, text="Xóa", width=20)
-    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: start_window(frame1))
-    button_list = [button1, button2, button3, button4]
-    for i in range(len(button_list)):
-        button_list[i].pack(side="left", padx=15)
+    # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
     frame2 = ttk.Frame(my_pcs)
     frame2.pack(side="top")
     listbox_frame2 = tk.Listbox(frame2)
     frame2 = tk.Frame(my_pcs)
     scrolled_text = scrolledtext.ScrolledText(frame2,height =50)
-    # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
+    scrolled_text.pack()
     listbox_1 = tk.Listbox(scrolled_text,height =50)
     listbox_2 = tk.Listbox(scrolled_text,height =50)
     listbox_3= tk.Listbox(scrolled_text,height =50)
-    listbox_1.insert(tk.END, "Name Proccess")
-    listbox_2.insert(tk.END, "ID Proccess")
+    listbox_1.insert(tk.END, "ID Proccess")
+    listbox_2.insert(tk.END, "Name Proccess")
     listbox_3.insert(tk.END, "Count Thread")
     listbox_1.focus_set()
     listbox_2.focus_set()
@@ -184,16 +268,22 @@ def pcs_window():
     listbox_2.pack(side=tk.LEFT)
     listbox_3.pack(side=tk.LEFT)
     frame2.pack(side="top", pady=10)
-    scrolled_text.pack()
+    button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: do_kill("Kill",frame1,listbox_1,listbox_2,listbox_3))
+    button2 = ttk.Button(frame1, text="Xem", width=20, command = lambda: do_view("Xem",frame1,listbox_1,listbox_2,listbox_3))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, command = lambda: do_clear("Xóa",frame1,listbox_1,listbox_2,listbox_3))
+    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("Start",frame1,listbox_1,listbox_2,listbox_3))
+    button_list = [button1, button2, button3, button4]
+    for i in range(len(button_list)):
+        button_list[i].pack(side="left", padx=15)
     # Chạy chương trình
     my_pcs.mainloop()
 
 
 
 def app_window():
-   #if communicate.status_connection == 0:
-   #   notice1()
-   #return  
+    #if communicate.status_connection == 0:
+    #   notice1()
+    #return
     my_app = Toplevel(mainClient)
     my_app.geometry("750x500")
     my_app.configure(bg = COLOUR_BACKGROUND)
@@ -201,13 +291,6 @@ def app_window():
     my_app.resizable(False, False)
     frame1 = ttk.Frame(my_app)
     frame1.pack(side="top", pady=20)
-    button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: kill_window(frame1))
-    button2 = ttk.Button(frame1, text="Xem", width=20)
-    button3 = ttk.Button(frame1, text="Xóa", width=20)
-    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: start_window(frame1))
-    button_list = [button1, button2, button3, button4]
-    for i in range(len(button_list)):
-        button_list[i].pack(side="left", padx=15)
     frame2 = ttk.Frame(my_app)
     frame2.pack(side="top")
     listbox_frame2 = tk.Listbox(frame2)
@@ -217,8 +300,8 @@ def app_window():
     listbox_1 = tk.Listbox(scrolled_text,height =50)
     listbox_2 = tk.Listbox(scrolled_text,height =50)
     listbox_3= tk.Listbox(scrolled_text,height =50)
-    listbox_1.insert(tk.END, "Name Application")
-    listbox_2.insert(tk.END, "ID Application")
+    listbox_1.insert(tk.END, "ID Application")
+    listbox_2.insert(tk.END, "Name Application")
     listbox_3.insert(tk.END, "Count Thread")
     listbox_1.focus_set()
     listbox_2.focus_set()
@@ -228,16 +311,15 @@ def app_window():
     listbox_3.pack(side=tk.LEFT)
     frame2.pack(side="top", pady=10)
     scrolled_text.pack()
+    button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: do_kill("Kill",frame1,listbox_1,listbox_2,listbox_3))
+    button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("Xem",frame1,listbox_1,listbox_2,listbox_3))
+    button3 = ttk.Button(frame1, text="Xóa", width=20)
+    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("Start",frame1,listbox_1,listbox_2,listbox_3))
+    button_list = [button1, button2, button3, button4]
+    for i in range(len(button_list)):
+        button_list[i].pack(side="left", padx=15)
     # Chạy chương trình
     my_app.mainloop()
-
-def do_kill(s,root):
-    click_button(s)
-    kill_window(root)        
-
-def do_start(s,root):
-    click_button(s)
-    start_window(root)
 
 def on_combobox_changed(event):
         selected_choice = combobox.get()
@@ -264,9 +346,6 @@ def delete_string():
 
  
 def rgt_window():
-   #if communicate.status_connection == 0:
-   #   notice1()
-   #return
     my_rgt = Toplevel(mainClient)
     my_rgt.geometry("550x550")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
@@ -369,6 +448,8 @@ def rgt_window():
 
 
 
+
+
 def get_ip(entryBox):
     ip = entryBox.get()
     communicate.status_connection = 1
@@ -387,31 +468,6 @@ def validate_input(char):
     else:
         return False
 
-
-# Điều kiện của KILL
-
-def notice4(root):
-    my_not4 = Toplevel(root)
-    my_not4.geometry("250x250")
-    my_not4.configure(bg = COLOUR_BACKGROUND)
-    my_not4.title('')
-    l1 = Label(my_not4,text = 'Đã diệt proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
-
-def notice5(root):
-    my_not5 = Toplevel(root)
-    my_not5.geometry("250x250")
-    my_not5.configure(bg = COLOUR_BACKGROUND)
-    my_not5.title('')
-    l1 = Label(my_not5,text = 'Không tồn tại proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
-
-# Điều kiện của Start
-
-def notice6(root):
-    my_not6 = Toplevel(root)
-    my_not6.geometry("250x250")
-    my_not6.configure(bg = COLOUR_BACKGROUND)
-    my_not6.title('')
-    l1 = Label(my_not6,text = 'Đã tắt proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
 
