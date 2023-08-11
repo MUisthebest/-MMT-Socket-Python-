@@ -111,9 +111,8 @@ def kst_window():
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
     frame2 = ttk.Frame(my_kst)
-    frame2.pack(side="top")
-    txt = scrolledtext.ScrolledText(frame2,width=50,height=25)
-    txt.focus()
+    frame2.pack(side="top",pady=15)
+    txt = Listbox(frame2,width=105,height=25)
     txt.pack()
 
 def pcs_window():
