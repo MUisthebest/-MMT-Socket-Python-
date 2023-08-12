@@ -3,6 +3,7 @@ from tkinter import scrolledtext
 from tkinter import font
 from tkinter import ttk
 import tkinter as tk
+from tkinter import filedialog
 from tkinter import Toplevel, Label, Button, PhotoImage
 from PIL import Image, ImageTk
 from tkinter.scrolledtext import ScrolledText
@@ -37,30 +38,43 @@ app_list = []
 def click_button(s):
     communicate.command = s
 
+def open_folder(root):
+    folder_path = filedialog.askdirectory()
+    label.config(text=folder_path)
+    label = tk.Label(root)
+    label.pack()
+    
+
 # Điều kiện của KILL
 
-def notice4(root):
+def notice4(root,listbox_1):
     my_not4 = Toplevel(root)
     my_not4.geometry("250x250")
     my_not4.configure(bg = COLOUR_BACKGROUND)
     my_not4.title('')
-    l1 = Label(my_not4,text = 'Đã diệt proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    list_1 = listbox_1.get("@0,0")
+    cut_1 = list_1.split()
+    l1 = Label(my_not4,text =  'Đã diệt ' + cut_1[-1],bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
-def notice5(root):
+def notice5(root,listbox_1):
     my_not5 = Toplevel(root)
     my_not5.geometry("250x250")
     my_not5.configure(bg = COLOUR_BACKGROUND)
     my_not5.title('')
-    l1 = Label(my_not5,text = 'Không tồn tại proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    list_1 = listbox_1.get("@0,0")
+    cut_1 = list_1.split()
+    l1 = Label(my_not5,text = 'Không tồn tại ' + cut_1[-1],bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 # Điều kiện của Start
 
-def notice6(root):
+def notice6(root,listbox_1):
     my_not6 = Toplevel(root)
     my_not6.geometry("250x250")
     my_not6.configure(bg = COLOUR_BACKGROUND)
     my_not6.title('')
-    l1 = Label(my_not6,text = 'Đã bật proccess',bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    list_1 = listbox_1.get("@0,0")
+    cut_1 = list_1.split()
+    l1 = Label(my_not6,text = 'Đã bật ' + cut_1[-1],bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
 def kill(root,listbox_1,listbox_2,listbox_3,txt):
@@ -70,20 +84,26 @@ def kill(root,listbox_1,listbox_2,listbox_3,txt):
     items = listbox_1.get(1, tk.END)
     for item in items:
        if get_id == item:
-           notice4(root)
+           notice4(root,listbox_1)
            index = items.index(item)
            listbox_1.delete(index+1)
            listbox_2.delete(index+1)
            listbox_3.delete(index+1)
+           return
+    notice5(root,listbox_1)    
            
-def start(listbox_1,listbox_2,listbox_3,txt):
+           
+def start(root,listbox_1,listbox_2,listbox_3,txt):
     if listbox_1.size() == 0:
          return
     get_id = txt.get()
     if get_id == "Haaland":
+        notice6(root,listbox_1)
         listbox_1.insert(tk.END,get_id)
         listbox_2.insert(tk.END,get_id)
         listbox_3.insert(tk.END,get_id)
+    else:
+        notice5(root,listbox_1)
 
     
 def kill_window(root,listbox_1,listbox_2,listbox_3):
@@ -106,7 +126,7 @@ def start_window(root,listbox_1,listbox_2,listbox_3):
     txt = Entry(my_sta,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_sta, text = "Start", width = 8,command = lambda: start(listbox_1,listbox_2,listbox_3,txt)).place(x = 200, y = 10)
+    Button(my_sta, text = "Start", width = 8,command = lambda: start(root,listbox_1,listbox_2,listbox_3,txt)).place(x = 200, y = 10)
 
 def do_kill(s,root,listbox_1,listbox_2,listbox_3):
     click_button(s)
@@ -186,7 +206,7 @@ def scr_window():
     #if communicate.status_connection == 0:
     #    notice1()
     #    return
-    notice3()
+    #notice3()
     my_scr = Toplevel(mainClient)
     my_scr.geometry("700x600")
     my_scr.configure(bg = COLOUR_BACKGROUND)
@@ -219,7 +239,7 @@ def kst_window():
     #if communicate.status_connection == 0:
     #   notice1()
     #return
-    notice3()
+    #notice3()
     my_kst = Toplevel(mainClient)
     my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
@@ -243,6 +263,7 @@ def pcs_window():
     #if communicate.status_connection == 0:
     #   notice1()
     #return
+    #notice3()
     my_pcs = Toplevel(mainClient)
     my_pcs.geometry("750x500")
     my_pcs.configure(bg = COLOUR_BACKGROUND)
@@ -286,6 +307,7 @@ def app_window():
     #if communicate.status_connection == 0:
     #   notice1()
     #return
+    #notice3()
     my_app = Toplevel(mainClient)
     my_app.geometry("750x500")
     my_app.configure(bg = COLOUR_BACKGROUND)
@@ -348,6 +370,10 @@ def delete_string():
 
  
 def rgt_window():
+    #if communicate.status_connection == 0:
+    #   notice1()
+    #return
+    #notice3()
     my_rgt = Toplevel(mainClient)
     my_rgt.geometry("550x550")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
@@ -361,7 +387,7 @@ def rgt_window():
     textbox1.pack(side="left", padx=10, pady=10)
     textbox1.configure(width = 50) 
 
-    button_browser = ttk.Button(frame1, text="Browser")
+    button_browser = ttk.Button(frame1, text="Browser",command = lambda: open_folder(my_rgt))
     button_browser.pack(side="left", padx=10, pady=10)
 
     # Tạo frame 2
