@@ -474,7 +474,7 @@ def rgt_window():
     combobox.set("Chọn tác vụ")  # Giá trị mặc định
 
     # Tạo danh sách các lựa chọn
-    choices = ["String      ", "Binary    ", "DWORD      ","QWORD     ","Mute String   "]
+    choices = ["String      ", "Binary    ", "DWORD      ","QWORD     ","Multi String  ","Expandable String  "]
 
 
     # Hàm xử lý khi người dùng thay đổi giá trị của combobox
