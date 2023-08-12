@@ -38,6 +38,12 @@ app_list = []
 def click_button(s):
     communicate.command = s
 
+def change_frame(frame):
+    style2 = ttk.Style()
+    style2.configure('Custom.TFrame', background= COLOUR_BACKGROUND)
+    frame.configure(style='Custom.TFrame')
+    
+
 def open_folder(root):
     folder_path = filedialog.askdirectory()
     label.config(text=folder_path)
@@ -208,7 +214,7 @@ def scr_window():
     #    return
     #notice3()
     my_scr = Toplevel(mainClient)
-    my_scr.geometry("700x600")
+    my_scr.geometry("700x550")
     my_scr.configure(bg = COLOUR_BACKGROUND)
     my_scr.title('Server Screen')
     my_scr.resizable(False, False)
@@ -221,12 +227,10 @@ def scr_window():
     img_width = img.width()
     img_height = img.height()
 
-    label = Label(my_scr, image = img, width = img_width, height = img_height)
+    label = Label(my_scr, image = img, width = img_width/3.5, height = img_height/3.2)
     label.image = img
-    label.place(relx = 0.08, rely = 0.1 )
+    label.place(relx = 0.055, rely = 0.165 )
 
-    label = Label(my_scr, width = 70, height= 30)
-    label.place(relx = 0.08, rely = 0.1 )
 
     buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: click_button("screenshot"))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8, command = lambda: click_button("saveimage"))
@@ -246,6 +250,7 @@ def kst_window():
     my_kst.title('Keystroke')
     my_kst.resizable(False, False)
     frame1 = ttk.Frame(my_kst)
+    change_frame(frame1)
     frame1.pack(side="top", pady=20)
     button1 = ttk.Button(frame1, text="Hook", width=20, command=lambda: click_button("hook"))
     button2 = ttk.Button(frame1, text="Unhook", width=20, command=lambda: click_button("unhook"))
@@ -270,6 +275,7 @@ def pcs_window():
     my_pcs.title('process')
     my_pcs.resizable(False, False)
     frame1 = ttk.Frame(my_pcs)
+    change_frame(frame1)
     frame1.pack(side="top", pady=20)
     # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
     frame2 = ttk.Frame(my_pcs)
@@ -291,10 +297,15 @@ def pcs_window():
     listbox_2.pack(side=tk.LEFT)
     listbox_3.pack(side=tk.LEFT)
     frame2.pack(side="top", pady=10)
-    button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: do_kill("Kill",frame1,listbox_1,listbox_2,listbox_3))
-    button2 = ttk.Button(frame1, text="Xem", width=20, command = lambda: do_view("Xem",frame1,listbox_1,listbox_2,listbox_3))
-    button3 = ttk.Button(frame1, text="Xóa", width=20, command = lambda: do_clear("Xóa",frame1,listbox_1,listbox_2,listbox_3))
-    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("Start",frame1,listbox_1,listbox_2,listbox_3))
+    style1 = ttk.Style()
+    style1.configure('TButton', background= COLOUR_BUTTON)
+    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("Kill",frame1,listbox_1,listbox_2,listbox_3))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: do_view("Xem",frame1,listbox_1,listbox_2,listbox_3))
+    button2.configure(style='TButton')
+    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: do_clear("Xóa",frame1,listbox_1,listbox_2,listbox_3))
+    button3.configure(style='TButton')
+    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("Start",frame1,listbox_1,listbox_2,listbox_3))
+    button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
@@ -314,6 +325,7 @@ def app_window():
     my_app.title('listApp')
     my_app.resizable(False, False)
     frame1 = ttk.Frame(my_app)
+    change_frame(frame1)
     frame1.pack(side="top", pady=20)
     frame2 = ttk.Frame(my_app)
     frame2.pack(side="top")
@@ -335,10 +347,16 @@ def app_window():
     listbox_3.pack(side=tk.LEFT)
     frame2.pack(side="top", pady=10)
     scrolled_text.pack()
+    style1 = ttk.Style()
+    style1.configure('TButton', background= COLOUR_BUTTON)
     button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: do_kill("Kill",frame1,listbox_1,listbox_2,listbox_3))
+    button1.configure(style='TButton')
     button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("Xem",frame1,listbox_1,listbox_2,listbox_3))
+    button2.configure(style='TButton')
     button3 = ttk.Button(frame1, text="Xóa", width=20)
+    button3.configure(style='TButton')
     button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("Start",frame1,listbox_1,listbox_2,listbox_3))
+    button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
@@ -375,14 +393,14 @@ def rgt_window():
     #return
     #notice3()
     my_rgt = Toplevel(mainClient)
-    my_rgt.geometry("550x550")
+    my_rgt.geometry("550x600")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
     my_rgt.title('Registry')
     my_rgt.resizable(False, False) 
     # Tạo frame 1
     frame1 = ttk.Frame(my_rgt)
     frame1.pack(side="top", pady=5)
-
+    change_frame(frame1)
     textbox1 = ttk.Entry(frame1)
     textbox1.pack(side="left", padx=10, pady=10)
     textbox1.configure(width = 50) 
@@ -393,19 +411,21 @@ def rgt_window():
     # Tạo frame 2
     frame2 = ttk.Frame(my_rgt)
     frame2.pack(side="top",pady= 5)
-
+    change_frame(frame2)
     txt = scrolledtext.ScrolledText(frame2,height = 8)
     txt.pack(side="left")
-    txt.configure(width = 38) 
-
+    txt.configure(width = 38)
+    but = ttk.Style()
+    but.configure('TButton', height=80)
     button_send_content = ttk.Button(frame2, text="Gửi nội dung")
-    button_send_content.pack(side="left", padx=10, pady=10)
-    
+    button_send_content.configure(style = 'TButton')
+    button_send_content.pack(side="left", padx=0, pady=5)
+  
 
     # Tạo frame 3
     frame3 = ttk.Frame(my_rgt)
     frame3.pack(side="top")
-
+    change_frame(frame3)
     label_text = ttk.Label(frame3, text="Sửa Giá Trị Trực Tiếp --------------------------------------------------------------")
     label_text.pack(padx=2, pady=15)
     
@@ -414,7 +434,7 @@ def rgt_window():
 
     frame4 = ttk.Frame(my_rgt)
     frame4.pack(side="top",pady=5)
-
+    change_frame(frame4)
     # Tạo combobox
     combobox = tk.StringVar(frame4)
     combobox.set("Chọn tác vụ")  # Giá trị mặc định
@@ -435,7 +455,7 @@ def rgt_window():
     # Tạo Frame 5
     frame5 = ttk.Frame(my_rgt)
     frame5.pack(side="top", pady=5)
-
+    change_frame(frame5)
     # Thêm Textbox vào Frame 1
     textbox1 = ttk.Entry(frame5)
     textbox1.pack(padx=10, pady=10)
@@ -444,7 +464,7 @@ def rgt_window():
     # Tạo Frame 6
     frame6 = ttk.Frame(my_rgt)
     frame6.pack(side="top", pady=5)
-
+    change_frame(frame6)
     # Thêm Textbox vào Frame 2 (cách đều nhau)
     textbox2 = ttk.Entry(frame6)
     textbox3 = ttk.Entry(frame6)
@@ -469,14 +489,25 @@ def rgt_window():
     # Tạo Frame 7
     frame7 = ttk.Frame(my_rgt)
     frame7.pack(side="top", pady=5)
-        
+    change_frame(frame7)    
     listbox = tk.Listbox(frame7)
     listbox.configure(width = 69, height = 8) 
     listbox.pack()
 
-
-
-
+    # Frame 8
+    frame8 = ttk.Frame(my_rgt)
+    frame8.pack(side="top", pady=5)
+    change_frame(frame8) 
+    style1 = ttk.Style()
+    style1.configure('TButton', background= COLOUR_BUTTON)
+    button1 = ttk.Button(frame8, text="Gửi", width=25,command = lambda: click_button('Gửi'))
+    button1.configure(style='TButton')
+    button2 = ttk.Button(frame8, text="Xóa", width=25,command = lambda: click_button('Xóa'))
+    button2.configure(style='TButton')
+    button_list = [button1, button2]
+    for i in range(len(button_list)):
+        button_list[i].pack(side="left", padx=15)
+    
 
 def get_ip(entryBox):
     ip = entryBox.get()
