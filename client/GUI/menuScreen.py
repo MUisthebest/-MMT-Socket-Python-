@@ -44,11 +44,16 @@ def change_frame(frame):
     frame.configure(style='Custom.TFrame')
     
 
-def open_folder(root):
-    folder_path = filedialog.askdirectory()
-    label.config(text=folder_path)
-    label = tk.Label(root)
-    label.pack()
+def open_folder(root,textbox1,scrolledbox):
+    file_path = filedialog.askopenfilename()
+    textbox1.delete(0, tk.END)
+    textbox1.insert(0, file_path)
+    with open(file_path, 'r') as file:
+        content = file.read()
+        scrolledbox.delete('1.0', tk.END)  # Xóa nội dung hiện tại trong vùng văn bản có cuộn
+        scrolledbox.insert(tk.END, content)  # Chèn nội dung file vào vùng văn bản có cuộn
+    
+    
     
 
 # Điều kiện của KILL
@@ -163,6 +168,10 @@ def do_clear(s,root,listbox_1,listbox_2,listbox_3):
     listbox_1.delete(1, tk.END)
     listbox_2.delete(1, tk.END)
     listbox_3.delete(1, tk.END)
+
+
+def send_content(s):
+    click_button(s)
     
     
 def displayImage(my_scr):
@@ -261,7 +270,7 @@ def kst_window():
         button_list[i].pack(side="left", padx=15)
     frame2 = ttk.Frame(my_kst)
     frame2.pack(side="top",pady=15)
-    txt = Listbox(frame2,width=105,height=25)
+    txt = Listbox(frame2,width=100,height=25)
     txt.pack()
 
 def pcs_window():
@@ -363,29 +372,34 @@ def app_window():
     # Chạy chương trình
     my_app.mainloop()
 
-def on_combobox_changed(event):
+def on_combobox_choose(combobox,choices1):
         selected_choice = combobox.get()
-        if selected_choice == choices[0]:
-            print('In')
-        elif selected_choice == choices[1]:
-            print('Lưu')
-        elif selected_choice == choices[2]:
-            print('Xóa')
+        if selected_choice == choices1[0]:
+            click_button("Get Value")
+        elif selected_choice == choices1[1]:
+            click_button("Creat Key")
+        elif selected_choice == choices1[2]:
+            click_button("Delete Value")
+        elif selected_choice == choices1[3]:
+            click_button("Create Key")
+        elif selected_choice == choices1[4]:
+            click_button("Delete Key")
+            
 
-def print_string():
-        selected_option = combo_box.get()
-        print("In chuỗi:", selected_option)
-
-def save_string():
-        selected_option = combo_box.get()
-        # Lưu chuỗi vào file hoặc database
-        print("Lưu chuỗi:", selected_option)
-
-def delete_string():
-        selected_option = combo_box.get()
-        # Xóa chuỗi khỏi file hoặc database
-        print("Xóa chuỗi:", selected_option)
-
+def on_combobox_type(combobox,choices2):
+    selected_choice = combobox.get()
+    if selected_choice == choices2[0]:
+       click_button("String")
+    elif selected_choice == choices2[1]:
+         click_button("Binary")
+    elif selected_choice == choices2[2]:
+         click_button("DWORD")
+    elif selected_choice == choices2[3]:
+         click_button("QWORD")
+    elif selected_choice == choices2[4]:
+         click_button("Multi String")
+    elif selected_choice == choices2[5]:     
+         click_button("Expandable String")   
  
 def rgt_window():
     #if communicate.status_connection == 0:
@@ -393,7 +407,7 @@ def rgt_window():
     #return
     #notice3()
     my_rgt = Toplevel(mainClient)
-    my_rgt.geometry("550x600")
+    my_rgt.geometry("550x590")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
     my_rgt.title('Registry')
     my_rgt.resizable(False, False) 
@@ -401,23 +415,21 @@ def rgt_window():
     frame1 = ttk.Frame(my_rgt)
     frame1.pack(side="top", pady=5)
     change_frame(frame1)
-    textbox1 = ttk.Entry(frame1)
-    textbox1.pack(side="left", padx=10, pady=10)
-    textbox1.configure(width = 50) 
-
-    button_browser = ttk.Button(frame1, text="Browser",command = lambda: open_folder(my_rgt))
-    button_browser.pack(side="left", padx=10, pady=10)
-
     # Tạo frame 2
     frame2 = ttk.Frame(my_rgt)
     frame2.pack(side="top",pady= 5)
     change_frame(frame2)
     txt = scrolledtext.ScrolledText(frame2,height = 8)
+    textbox_path = ttk.Entry(frame1)
+    button_browser = ttk.Button(frame1, text="Browser",command = lambda: open_folder(my_rgt,textbox_path,txt))
+    button_browser.pack(side="right", padx=10, pady=10)
+    textbox_path.pack(side="right", padx=10, pady=10)
+    textbox_path.configure(width = 50) 
     txt.pack(side="left")
     txt.configure(width = 38)
     but = ttk.Style()
     but.configure('TButton', height=80)
-    button_send_content = ttk.Button(frame2, text="Gửi nội dung")
+    button_send_content = ttk.Button(frame2, text="Gửi nội dung",command = lambda: click_button("Gửi nội dung"))
     button_send_content.configure(style = 'TButton')
     button_send_content.pack(side="left", padx=0, pady=5)
   
@@ -426,7 +438,9 @@ def rgt_window():
     frame3 = ttk.Frame(my_rgt)
     frame3.pack(side="top")
     change_frame(frame3)
-    label_text = ttk.Label(frame3, text="Sửa Giá Trị Trực Tiếp --------------------------------------------------------------")
+    style = ttk.Style()
+    style.configure('TLabel', background= COLOUR_BACKGROUND)
+    label_text = ttk.Label(frame3, text="Sửa Giá Trị Trực Tiếp --------------------------------------------------------------",style = 'TLabel')
     label_text.pack(padx=2, pady=15)
     
 
@@ -440,7 +454,7 @@ def rgt_window():
     combobox.set("Chọn tác vụ")  # Giá trị mặc định
         
     # Tạo danh sách các lựa chọn
-    choices = ["Get Value      ", "Creat Key      ", "Delete Value      ","Create Key      ","Delete Key      "]
+    choices1 = ["Get Value      ", "Creat Key      ", "Delete Value      ","Create Key      ","Delete Key      "]
 
     
 
@@ -448,7 +462,7 @@ def rgt_window():
 
 
     # Tạo combobox và gắn sự kiện cho nó
-    combobox_widget = tk.OptionMenu(frame4 , combobox, *choices, command=on_combobox_changed)
+    combobox_widget = tk.OptionMenu(frame4 , combobox, *choices1, command=on_combobox_choose(combobox,choices1))
     combobox_widget.configure(width = 63) 
     combobox_widget.pack(pady=10)
 
@@ -456,10 +470,10 @@ def rgt_window():
     frame5 = ttk.Frame(my_rgt)
     frame5.pack(side="top", pady=5)
     change_frame(frame5)
-    # Thêm Textbox vào Frame 1
+    # Thêm Textbox vào Frame
     textbox1 = ttk.Entry(frame5)
     textbox1.pack(padx=10, pady=10)
-    textbox1.configure(width = 66) 
+    textbox1.configure(width = 68) 
 
     # Tạo Frame 6
     frame6 = ttk.Frame(my_rgt)
@@ -474,15 +488,11 @@ def rgt_window():
     combobox.set("Chọn tác vụ")  # Giá trị mặc định
 
     # Tạo danh sách các lựa chọn
-    choices = ["String      ", "Binary    ", "DWORD      ","QWORD     ","Multi String  ","Expandable String  "]
-
-
-    # Hàm xử lý khi người dùng thay đổi giá trị của combobox
-
+    choices2 = ["String      ", "Binary    ", "DWORD      ","QWORD     ","Multi String  ","Expandable String  "]
 
     # Tạo combobox và gắn sự kiện cho nó
-    combobox_widget = tk.OptionMenu(frame6 , combobox, *choices, command=on_combobox_changed)
-    combobox_widget.configure(width = 10) 
+    combobox_widget = tk.OptionMenu(frame6 , combobox, *choices2, command=on_combobox_type(combobox,choices2))
+    combobox_widget.configure(width = 14) 
     combobox_widget.pack(side="left", padx=10)
 
 
@@ -506,7 +516,7 @@ def rgt_window():
     button2.configure(style='TButton')
     button_list = [button1, button2]
     for i in range(len(button_list)):
-        button_list[i].pack(side="left", padx=15)
+        button_list[i].pack(side="left", padx=20)
     
 
 def get_ip(entryBox):
