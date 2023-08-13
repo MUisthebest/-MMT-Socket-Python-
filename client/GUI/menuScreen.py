@@ -231,6 +231,10 @@ def scr_window():
     my_scr.resizable(False, False)
     communicate.src_screen = my_scr
 
+    label = Label(my_scr, image = img, width=70, height=80) #width = img_width/3.5, height = img_height/3.2)
+    # label.image = img
+    label.place(relx = 0.055, rely = 0.165 )
+
     script_dir = os.path.dirname(__file__)
     img_path = os.path.join(script_dir, "tempData/tempImage.png")
     img = PhotoImage(file = img_path)
@@ -238,10 +242,8 @@ def scr_window():
     img_width = img.width()
     img_height = img.height()
 
-    label = Label(my_scr, image = img, width = img_width/3.5, height = img_height/3.2)
-    label.image = img
-    label.place(relx = 0.055, rely = 0.165 )
-
+    img_width = 500
+    img_height = 400
 
     buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: click_button("screenshot"))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8, command = lambda: click_button("saveimage"))
