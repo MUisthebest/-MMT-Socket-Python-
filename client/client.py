@@ -1,5 +1,5 @@
 import socket
-# from PIL import Image
+from PIL import Image
 import receiveScreenShot
 import receiveRunningApp
 import receiveProcess
