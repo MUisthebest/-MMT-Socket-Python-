@@ -558,7 +558,7 @@ def draw ():
     buttonProcess.grid(row = 1, column = 0, rowspan = 3)
     buttonApp = Button(mainClient, text = "App Running", font = fontWord, width = 26, bg = COLOUR_BUTTON, fg = COLOUR_FONT, command = lambda: app_window(), padx = 20, pady = 33)
     buttonApp.grid(row = 1, column = 1, sticky = 'EW')
-    buttonTurnOff = Button(mainClient, text = "Turn-Off\n\nComputer", font = fontWord, width = 15, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 10, pady = 33)
+    buttonTurnOff = Button(mainClient, text = "Turn-Off\n\nComputer", font = fontWord, width = 15, bg = COLOUR_BUTTON, fg = COLOUR_FONT,, command = lambda: click_button("shutdown"), padx = 10, pady = 33)
     buttonTurnOff.grid(row = 2, column = 1, sticky = W)
     buttonCap = Button(mainClient, text = "Print\n\nScreen", font = fontWord, width = 15, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: scr_window(), padx = 10, pady = 33)
     buttonCap.grid(row = 2, column = 1, sticky = E)
