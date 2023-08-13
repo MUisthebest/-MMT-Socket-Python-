@@ -362,7 +362,7 @@ def app_window():
     button1.configure(style='TButton')
     button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("Xem",frame1,listbox_1,listbox_2,listbox_3))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20)
+    button3 = ttk.Button(frame1, text="Xóa", width=20, command = lambda: do_clear("Xóa",frame1,listbox_1,listbox_2,listbox_3))
     button3.configure(style='TButton')
     button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("Start",frame1,listbox_1,listbox_2,listbox_3))
     button4.configure(style='TButton')
