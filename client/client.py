@@ -50,8 +50,7 @@ def start_client():
         else:
             data = clientsocket.recv(1024)
             print('Received from server: ', data.decode('ascii'))
-        if flag == 'QUIT':
-            break
+        if flag == 'QUIT': break
         communicate.command = ''
     clientsocket.close()
     communicate.init()

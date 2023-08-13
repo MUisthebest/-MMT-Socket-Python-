@@ -571,7 +571,7 @@ def draw ():
     buttonRegistry.grid(row = 3, column = 1, sticky = 'EW')
     buttonKeyStroke = Button(mainClient, text = "Keystroke", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: kst_window(), padx = 50, pady = 95)
     buttonKeyStroke.grid(row = 1, column = 2, rowspan = 2)
-    buttonExit = Button(mainClient, text = "Exit", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 50, pady = 30, command = lambda: click_button("QUIT"))
+    buttonExit = Button(mainClient, text = "Exit", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 50, pady = 30, command = on_closing)
     buttonExit.grid(row = 3, column = 2)
     mainClient.mainloop()
 
