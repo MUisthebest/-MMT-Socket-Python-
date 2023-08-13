@@ -1,3 +1,0 @@
-Cr7,Messi,Goat
-Goat,Cr7,Messi
-Messi,Goat,Cr7 

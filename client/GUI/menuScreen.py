@@ -150,7 +150,7 @@ def do_start(s,root,listbox_1,listbox_2,listbox_3):
 def do_view(s,root,listbox_1,listbox_2,listbox_3):
     click_button(s)
     script_dir = os.path.dirname(__file__)
-    img_path = os.path.join(script_dir, "tempData\\Data.txt")
+    img_path = os.path.join(script_dir, "tempData\\processData.txt")
     if communicate.command ==  s:
        with open(img_path, 'r') as file:
           lines = file.readlines()
@@ -164,10 +164,12 @@ def do_view(s,root,listbox_1,listbox_2,listbox_3):
                listbox_3.insert(tk.END,my_struct.string3)
 
 def do_clear(s,root,listbox_1,listbox_2,listbox_3):
-    click_button(s)
     listbox_1.delete(1, tk.END)
     listbox_2.delete(1, tk.END)
     listbox_3.delete(1, tk.END)
+    script_dir = os.path.dirname(__file__)
+    file_path = os.path.join(script_dir, "tempData/processData.png")
+    with open(file_path, "w") as fo: pass
 
 
 def send_content(s):

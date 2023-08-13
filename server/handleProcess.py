@@ -24,7 +24,7 @@ def listProcess(clientsocket):
         try:
             # Get process details as a dictionary
             process = proc.as_dict(attrs=['pid', 'name', 'num_threads'])
-            processInfo = f'{process["pid"]} {process["name"]} {process["num_threads"]}'
+            processInfo = f'{process["pid"]},{process["name"]},{process["num_threads"]}'
             clientsocket.send(processInfo.encode())  
             
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
