@@ -148,6 +148,7 @@ def do_start(s,root,listbox_1,listbox_2,listbox_3):
     start_window(root,listbox_1,listbox_2,listbox_3)
 
 def do_view(s,root,listbox_1,listbox_2,listbox_3):
+    do_clear(s, root, listbox_1, listbox_2, listbox_3)
     click_button(s)
     script_dir = os.path.dirname(__file__)
     img_path = os.path.join(script_dir, "tempData\\processData.txt")
@@ -231,7 +232,7 @@ def scr_window():
     my_scr.resizable(False, False)
     communicate.src_screen = my_scr
 
-    label = Label(my_scr, image = img, width=70, height=80) #width = img_width/3.5, height = img_height/3.2)
+    label = Label(my_scr, bg = "#FFFFFF", width=70, height=80) #width = img_width/3.5, height = img_height/3.2)
     # label.image = img
     label.place(relx = 0.055, rely = 0.165 )
 

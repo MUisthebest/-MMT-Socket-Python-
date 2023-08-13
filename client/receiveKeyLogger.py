@@ -3,7 +3,7 @@ import struct
 import os 
 
 script_dir = os.path.dirname(__file__)
-filePath = os.path.join(script_dir, "tempData/keylogger.txt")
+filePath = os.path.join(script_dir, "GUI/tempData/keylogger.txt")
 
 def deleteContentKeyLogger():
     with open(filePath, "w") as fi:
