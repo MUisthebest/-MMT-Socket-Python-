@@ -4,6 +4,7 @@ from PIL import Image
 from GUI import menuScreen
 from GUI import communicate
 import struct
+import queue
 import io
 import os 
 script_dir = os.path.dirname(__file__)
@@ -33,7 +34,8 @@ def readImage(client_socket):
     img = Image.open(io.BytesIO(received_data))
     img.save(tempImage_path)
     print("Screenshot received successfully and loaded into PIL.Image object")
-    menuScreen.displayImage(communicate.src_screen)
+    communicate.queue_to_main.put("displayimage")
+    # menuScreen.displayImage(communicate.src_screen)
     # img.show()
     # save = input("save?")
     # if (save == "y") : saveImage(img)

