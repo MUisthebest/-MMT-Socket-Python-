@@ -44,7 +44,7 @@ def handleClientSocket(clientsocket):
 def start_server():
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = ''
-    port = 9999
+    port = 8000
     serversocket.bind((host, port))
     serversocket.listen(5)
     while True:

@@ -182,8 +182,8 @@ def displayImage(my_scr):
     img_path = os.path.join(script_dir, "tempData/tempImage.png")
 
     # Open and resize the image using Pillow
-    new_width = 490
-    new_height = 450
+    new_width = 495
+    new_height = 455
     with Image.open(img_path) as img:
         img = img.resize((new_width, new_height))
 
@@ -232,19 +232,19 @@ def scr_window():
     my_scr.resizable(False, False)
     communicate.src_screen = my_scr
 
-    label = Label(my_scr, bg = "#FFFFFF", width=500/3.5, height=400/3.5) #width = img_width/3.5, height = img_height/3.2)
+    label = Label(my_scr, bg = "#FFFFFF", width=65, height=30) #width = img_width/3.5, height = img_height/3.2)
     # label.image = img
-    label.place(relx = 0.055, rely = 0.165 )
+    label.place(relx = 0.1, rely = 0.1 )
 
     script_dir = os.path.dirname(__file__)
     img_path = os.path.join(script_dir, "tempData/tempImage.png")
     img = PhotoImage(file = img_path)
 
-    # img_width = img.width()
-    # img_height = img.height()
+    img_width = img.width()
+    img_height = img.height()
 
-    img_width = 500
-    img_height = 400
+    # img_width = 500
+    # img_height = 400
 
     buton1 = Button(my_scr,text = 'Chụp',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord, width = 8, height = 16, command = lambda: click_button("screenshot"))
     buton2 = Button(my_scr,text = 'Lưu',bg = COLOUR_BUTTON,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER, font = fontWord,width = 8, height = 8, command = lambda: click_button("saveimage"))

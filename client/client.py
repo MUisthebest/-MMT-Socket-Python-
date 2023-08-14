@@ -16,7 +16,7 @@ def start_client():
     clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # host = '192.168.2.100'
     host = communicate.ipHost if communicate.ipHost else 'localhost'
-    port = 9999
+    port = 8000
     try:
         clientsocket.connect((host, port))
         communicate.status_connection = 2
