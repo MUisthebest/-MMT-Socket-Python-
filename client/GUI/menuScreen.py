@@ -155,7 +155,7 @@ def do_clear(label,root, listbox_list, scrolled_text):
     listbox_3 = tk.Listbox(tframe, width=35, height=1)
     listbox_3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
     scrolled_text.window_create(tk.END, window=tframe)
-    if label == "ClearProccess" or label == "startproccess" or label == "killprocess":
+    if label == "clearproccess" or label == "startproccess" or label == "killprocess":
        for i in range(3):
            listbox_1.insert(tk.END, "ID Proccess")
            listbox_2.insert(tk.END, "Name Proccess")
@@ -361,7 +361,7 @@ def pcs_window():
     button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",frame1,pcs_list,scrolled_text))
     button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: do_view("listprocess",my_pcs,scrolled_text,pcs_list))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: do_clear("ClearProccess",my_pcs,pcs_list,scrolled_text))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: do_clear("clearproccess",my_pcs,pcs_list,scrolled_text))
     button3.configure(style='TButton')
     button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startproccess",frame1,pcs_list,scrolled_text))
     button4.configure(style='TButton')
@@ -409,11 +409,11 @@ def app_window():
     style1.configure('TButton', background= COLOUR_BUTTON)
     button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: do_kill("killproccess",frame1,app_list,scrolled_text))
     button1.configure(style='TButton')
-    button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("listapplication",my_app,scrolled_text,app_list))
+    button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("listrunningapp",my_app,scrolled_text,app_list))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20, command = lambda: do_clear("clearapplication",my_app,app_list,scrolled_text))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, command = lambda: do_clear("clearrunningapp",my_app,app_list,scrolled_text))
     button3.configure(style='TButton')
-    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("startproccess",frame1,app_list,scrolled_text))
+    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("startrunningapp",frame1,app_list,scrolled_text))
     button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
