@@ -307,7 +307,7 @@ def pcs_window():
     frame2 = ttk.Frame(my_pcs)
     frame2.pack(side="top")
     # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
-    cols = ("Name Application", "ID Application", "Court Thread")
+    cols = ("ID Proccess", "Name Proccess", "Court Thread")
     frame2.my_tree = ttk.Treeview(frame2, column = cols, height= 10, selectmode = "browse", show = 'headings')
     frame2.my_tree.column("#1", anchor= tk.CENTER, stretch= 'no', width= 175)
     frame2.my_tree.heading("#1", text="Name Application")
@@ -358,7 +358,7 @@ def app_window():
     frame1.pack(side="top", pady=20)
     frame2 = ttk.Frame(my_app)
     frame2.pack(side="top")
-    cols = ("Name Application", "ID Application", "Court Thread")
+    cols = ("ID Application", "Name Application", "Court Thread")
     frame2.my_tree = ttk.Treeview(frame2, column = cols, height= 10, selectmode = "browse", show = 'headings')
     frame2.my_tree.column("#1", anchor= tk.CENTER, stretch= 'no', width= 175)
     frame2.my_tree.heading("#1", text="Name Application")
