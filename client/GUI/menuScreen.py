@@ -148,11 +148,12 @@ def delete(s,self):
     
 def insertText(s, self, dataFileName = "processData.txt"):
     click_button(s)
+    delete(s, self)
     script_dir = os.path.dirname(__file__)
     img_path = os.path.join(script_dir, "tempData\\" + dataFileName)
     if communicate.command ==  s:
        self.my_tree.delete()
-       with open(img_path, 'r') as file:
+       with open(img_path, 'r', encoding='utf-8') as file:
             lines = file.readlines()
             for line in lines:
                 values = line.strip().split(',')
@@ -271,7 +272,6 @@ def kst_window():
     if communicate.status_connection == 0:
        notice1()
        return
-    notice3()
     my_kst = Toplevel(mainClient)
     my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
@@ -308,14 +308,14 @@ def pcs_window():
     frame2 = ttk.Frame(my_pcs)
     frame2.pack(side="top")
     # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
-    cols = ("Name Application", "ID Application", "Court Thread")
+    cols = ("ID Process", "Name Process", "Count Thread")
     frame2.my_tree = ttk.Treeview(frame2, column = cols, height= 10, selectmode = "browse", show = 'headings')
     frame2.my_tree.column("#1", anchor= tk.CENTER, stretch= 'no', width= 175)
-    frame2.my_tree.heading("#1", text="Name Application")
+    frame2.my_tree.heading("#1", text="Id Process")
     frame2.my_tree.column("#2", anchor= tk.CENTER, stretch= 'no', width = 175)
-    frame2.my_tree.heading("#2", text="ID Application")
+    frame2.my_tree.heading("#2", text="Name Process")
     frame2.my_tree.column("#3", anchor= tk.CENTER, stretch= 'no', width = 175)
-    frame2.my_tree.heading("#3", text="Court Thread")
+    frame2.my_tree.heading("#3", text="Count Thread")
     tree_scroll = ttk.Scrollbar(frame2, orient= "vertical")
     tree_scroll.configure(command= frame2.my_tree.yview)
     frame2.my_tree.configure(yscrollcommand= tree_scroll.set)
@@ -359,14 +359,14 @@ def app_window():
     frame1.pack(side="top", pady=20)
     frame2 = ttk.Frame(my_app)
     frame2.pack(side="top")
-    cols = ("Name Application", "ID Application", "Court Thread")
+    cols = ("Id Application", "Name Application", "Count Thread")
     frame2.my_tree = ttk.Treeview(frame2, column = cols, height= 10, selectmode = "browse", show = 'headings')
     frame2.my_tree.column("#1", anchor= tk.CENTER, stretch= 'no', width= 175)
-    frame2.my_tree.heading("#1", text="Name Application")
+    frame2.my_tree.heading("#1", text="ID Application")
     frame2.my_tree.column("#2", anchor= tk.CENTER, stretch= 'no', width = 175)
-    frame2.my_tree.heading("#2", text="ID Application")
+    frame2.my_tree.heading("#2", text="Name Application")
     frame2.my_tree.column("#3", anchor= tk.CENTER, stretch= 'no', width = 175)
-    frame2.my_tree.heading("#3", text="Court Thread")
+    frame2.my_tree.heading("#3", text="Count Thread")
     tree_scroll = ttk.Scrollbar(frame2, orient= "vertical")
     tree_scroll.configure(command= frame2.my_tree.yview)
     frame2.my_tree.configure(yscrollcommand= tree_scroll.set)
@@ -540,13 +540,15 @@ def rgt_window():
     
 
 def get_ip(entryBox):
+    if (communicate.status_connection != 0) : return
     ip = entryBox.get()
+    communicate.ipHost = ip
     communicate.status_connection = 1
-    if communicate.status_connection = 1 :
+    while communicate.status_connection == 1 : pass
+    if communicate.status_connection == 2 :
        notice3()   
     else:
        notice2() 
-    communicate.ipHost = ip
 
 def check_valid_ip(ip):
     return True
@@ -575,7 +577,6 @@ def draw ():
 
     entryBox = Entry(mainClient, bg = "#E9F4EE", fg = "#000000", font = fontWord, justify = LEFT, bd = 15, width = 82) #validate = "key", validatecommand=(mainClient.register(validate_input), "%S")
     entryBox.grid(row = 0, column = 0, columnspan = 2, sticky = E)
-    while()
     buttonConnect = Button(mainClient, text = "Connect", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 50, pady = 15, command=lambda: get_ip(entryBox))
     buttonConnect.grid(row = 0, column = 2)
     buttonProcess = Button(mainClient, text = "Process Running", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: pcs_window(), padx = 50, pady = 150)
@@ -598,14 +599,17 @@ def draw ():
 def on_closing():
     # This function will be executed when the close button is clicked
     communicate.command = "QUIT"
-
     # You can add any custom cleanup operations or other logic here
 
     # Close the window
     mainClient.quit()  # Quit the mainloop
+    mainClient.destroy()
 
 def check_queue():
     global mainClient
+    if communicate.status_connection != 2: 
+        mainClient.after(100, check_queue)
+        return
     while not communicate.queue_to_main.empty():
         command = communicate.queue_to_main.get()
         if command == "displayimage":

@@ -1,2 +1,8 @@
-listApp 16672 13
-Main Menu 16672 13
+14260,listApp,13
+14260,Main Menu,13
+14208,Windows PowerShell,25
+2004,Visual Studio Code,41
+9548,NVIDIA GeForce Overlay,35
+9976,Microsoft​ Edge,63
+6664,,85
+6664,Program Manager,85

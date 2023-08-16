@@ -15,7 +15,9 @@ def valid(command):
 def start_client():
     clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # host = '192.168.2.100'
+    # print(communicate.ipHost)
     host = communicate.ipHost if communicate.ipHost else 'localhost'
+    print(host)
     port = 8000
     try:
         clientsocket.connect((host, port))

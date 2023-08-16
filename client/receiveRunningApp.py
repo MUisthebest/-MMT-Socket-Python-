@@ -11,9 +11,10 @@ def receiveRunningApp(clientsocket):
     for i in range(numberRunningApp):
         runningAppInfo.append(clientsocket.recv(1024).decode())
         # print(runningAppInfo[-1])
-    with open(file_path, 'w') as fo:
+    with open(file_path, 'w', encoding="utf-8") as fo:
         for pcInfo in runningAppInfo:
             fo.write(pcInfo + '\n')
+            # print(type(pcInfo))
 
     
 
