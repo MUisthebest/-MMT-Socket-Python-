@@ -541,7 +541,7 @@ def rgt_window():
 def get_ip(entryBox):
     ip = entryBox.get()
     communicate.status_connection = 1
-    if communicate.status_connection = 1 :
+    if communicate.status_connection == 1 :
        notice3()   
     else:
        notice2() 
