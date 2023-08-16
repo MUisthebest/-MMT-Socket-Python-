@@ -381,12 +381,12 @@ def app_window():
     frame2.arrayInfo = []
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
-    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",my_app,frame2))
-    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
+    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killrunningapp",my_app,frame2))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listrunningapp",frame2,dataFileName="apprunningdata.txt"))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete("clearproccess",frame2))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete("clearrunningapp",frame2))
     button3.configure(style='TButton')
-    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startproccess",my_app,frame2))
+    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startapp",my_app,frame2))
     button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):

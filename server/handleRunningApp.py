@@ -23,5 +23,5 @@ def listRunningApp(clientsocket):
             thread_count = process.num_threads()
         except psutil.NoSuchProcess:
             continue
-        appInfo = f'{app_name} {proc_id} {thread_count}'
+        appInfo = f'{proc_id},{app_name},{thread_count}'
         clientsocket.send(appInfo.encode())
