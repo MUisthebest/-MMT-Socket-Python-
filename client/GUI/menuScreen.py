@@ -38,7 +38,7 @@ class info():
         self.Thread = Thread
 
 pcs_list = []
-app_list = []
+
 
    
 
@@ -159,6 +159,7 @@ def insertText(s, self, dataFileName = "processData.txt"):
                 if len(values) == 3:
                    my_struct = MyStruct(values[0], values[1], values[2])
                    self.my_tree.insert("", 'end', values= (values[0], values[1], values[2]))
+                
 
 
     
@@ -338,6 +339,9 @@ def pcs_window():
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
+
+    if not my_pcs.winfo_exists():
+         frame2.arrayInfo = []
     # Chạy chương trình
     my_pcs.mainloop()
 
@@ -387,6 +391,8 @@ def app_window():
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
+    if not my_app.winfo_exists():
+         frame2.arrayInfo = []    
     # Chạy chương trình
     my_app.mainloop()
 
