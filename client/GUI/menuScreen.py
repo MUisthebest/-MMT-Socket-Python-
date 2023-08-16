@@ -216,7 +216,6 @@ def scr_window():
     if communicate.status_connection == 0:
        notice1()
        return
-    notice3()
     my_scr = Toplevel(mainClient)
     my_scr.geometry("700x550")
     my_scr.configure(bg = COLOUR_BACKGROUND)
@@ -298,7 +297,6 @@ def pcs_window():
     if communicate.status_connection == 0:
        notice1()
        return
-    notice3()
     my_pcs = Toplevel(mainClient)
     my_pcs.geometry("750x500")
     my_pcs.configure(bg = COLOUR_BACKGROUND)
@@ -351,7 +349,6 @@ def app_window():
     if communicate.status_connection == 0:
        notice1()
        return
-    notice3()
     my_app = Toplevel(mainClient)
     my_app.geometry("750x500")
     my_app.configure(bg = COLOUR_BACKGROUND)
@@ -429,7 +426,6 @@ def rgt_window():
     if communicate.status_connection == 0:
        notice1()
        return
-    notice3()
     my_rgt = Toplevel(mainClient)
     my_rgt.geometry("550x590")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
@@ -546,6 +542,10 @@ def rgt_window():
 def get_ip(entryBox):
     ip = entryBox.get()
     communicate.status_connection = 1
+    if communicate.status_connection = 1 :
+       notice3()   
+    else:
+       notice2() 
     communicate.ipHost = ip
 
 def check_valid_ip(ip):
@@ -575,7 +575,7 @@ def draw ():
 
     entryBox = Entry(mainClient, bg = "#E9F4EE", fg = "#000000", font = fontWord, justify = LEFT, bd = 15, width = 82) #validate = "key", validatecommand=(mainClient.register(validate_input), "%S")
     entryBox.grid(row = 0, column = 0, columnspan = 2, sticky = E)
-
+    while()
     buttonConnect = Button(mainClient, text = "Connect", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT, padx = 50, pady = 15, command=lambda: get_ip(entryBox))
     buttonConnect.grid(row = 0, column = 2)
     buttonProcess = Button(mainClient, text = "Process Running", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: pcs_window(), padx = 50, pady = 150)
