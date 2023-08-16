@@ -1,4 +1,8 @@
 import struct
+import os
+
+script_dir = os.path.dirname(__file__)
+file_path = os.path.join(script_dir, "GUI\\tempData\\apprunningData.txt") 
 
 def receiveRunningApp(clientsocket):
     numberRunningApp = struct.unpack('!I', clientsocket.recv(4))[0]
@@ -6,7 +10,10 @@ def receiveRunningApp(clientsocket):
     runningAppInfo = []
     for i in range(numberRunningApp):
         runningAppInfo.append(clientsocket.recv(1024).decode())
-        print(runningAppInfo[-1])
+        # print(runningAppInfo[-1])
+    with open(file_path, 'w') as fo:
+        for pcInfo in runningAppInfo:
+            fo.write(pcInfo + '\n')
 
     
 

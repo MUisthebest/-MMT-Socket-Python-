@@ -168,10 +168,10 @@ def do_clear(label,root, listbox_list, scrolled_text):
     
 
 
-def do_view(label,root,scrolled_text,listbox_frames):
+def do_view(label,root,scrolled_text,listbox_frames, dataFileName = "processData.txt"):
     click_button(label)
     script_dir = os.path.dirname(__file__)
-    img_path = os.path.join(script_dir, "tempData\\processData.txt")
+    img_path = os.path.join(script_dir, "tempData\\" + dataFileName)
     if communicate.command ==  label:
        with open(img_path, 'r') as file:
             lines = file.readlines()
@@ -409,7 +409,7 @@ def app_window():
     style1.configure('TButton', background= COLOUR_BUTTON)
     button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: do_kill("killproccess",frame1,app_list,scrolled_text))
     button1.configure(style='TButton')
-    button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("listrunningapp",my_app,scrolled_text,app_list))
+    button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("listrunningapp",my_app,scrolled_text,app_list,dataFileName="apprunningData.txt"))
     button2.configure(style='TButton')
     button3 = ttk.Button(frame1, text="Xóa", width=20, command = lambda: do_clear("clearrunningapp",my_app,app_list,scrolled_text))
     button3.configure(style='TButton')
