@@ -271,7 +271,6 @@ def kst_window():
     if communicate.status_connection == 0:
        notice1()
        return
-    notice3()
     my_kst = Toplevel(mainClient)
     my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
