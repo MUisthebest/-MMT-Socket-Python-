@@ -384,7 +384,7 @@ def app_window():
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
     # Chạy chương trình
-    my_pcs.mainloop()
+    my_app.mainloop()
 
 def on_combobox_choose(combobox,choices1):
         selected_choice = combobox.get()
