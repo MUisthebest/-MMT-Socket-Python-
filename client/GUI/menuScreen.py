@@ -88,11 +88,11 @@ def notice6(root,s):
     l1 = Label(my_not6,text = 'Đã bật ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
-def kill(s,root,self):
+def kill(s, root, self, fileDataName = "processData.txt"):
     click_button(s)
     if True: 
        delete(s,self)
-       insertText(s,self)
+       insertText(s,self, fileDataName = fileDataName)
        notice4(root,s)
     else:
        notice5(root,s)
@@ -101,16 +101,16 @@ def kill(s,root,self):
     
            
            
-def start(s,root,self):
+def start(s, root, self, fileDataName = "processData.txt"):
     click_button(s)
     if True:
        delete(s,self)
-       insertText(s,self)
+       insertText(s,self, fileDataName = fileDataName)
        notice6(root,s)
     else:
        notice5(root,s)
     
-def kill_window(s,root,self):
+def kill_window(s,root,self,fileDataName = "processData.txt"):
     my_kll = Toplevel(root)
     my_kll.geometry("280x60")
     my_kll.configure(bg = COLOUR_BACKGROUND)
@@ -118,11 +118,11 @@ def kill_window(s,root,self):
     txt = Entry(my_kll,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self)).place(x=200, y=10)
+    Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self,fileDataName)).place(x=200, y=10)
 
     
     
-def start_window(s,root,self):
+def start_window(s,root,self,fileDataName = "processData.txt"):
     my_sta = Toplevel(root)
     my_sta.geometry("280x60")
     my_sta.configure(bg = COLOUR_BACKGROUND)
@@ -130,14 +130,14 @@ def start_window(s,root,self):
     txt = Entry(my_sta,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self)).place(x = 200, y = 10)
+    Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self,fileDataName)).place(x = 200, y = 10)
 
-def do_kill(s,root,self):
-    kill_window(s,root,self)
+def do_kill(s,root,self,fileDataName = "processData.txt"):
+    kill_window(s,root,self,fileDataName)
     
 
-def do_start(s,root,self):
-    start_window(s,root,self)
+def do_start(s,root,self,fileDataName = "processData.txt"):
+    start_window(s,root,self,fileDataName)
 
 
 def delete(s,self):
@@ -146,11 +146,11 @@ def delete(s,self):
         self.my_tree.delete(i)
     
     
-def insertText(s, self, dataFileName = "processData.txt"):
+def insertText(s, self, fileDataName = "processData.txt"):
     click_button(s)
     delete(s, self)
     script_dir = os.path.dirname(__file__)
-    img_path = os.path.join(script_dir, "tempData\\" + dataFileName)
+    img_path = os.path.join(script_dir, "tempData\\" + fileDataName)
     if communicate.command ==  s:
        self.my_tree.delete()
        with open(img_path, 'r', encoding='utf-8') as file:
@@ -378,12 +378,12 @@ def app_window():
     frame2.arrayInfo = []
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
-    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killrunningapp",my_app,frame2))
-    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listrunningapp",frame2,dataFileName="apprunningdata.txt"))
+    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killrunningapp",my_app,frame2, fileDataName="apprunningdata.txt"))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listrunningapp",frame2,fileDataName="apprunningdata.txt"))
     button2.configure(style='TButton')
     button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete("clearrunningapp",frame2))
     button3.configure(style='TButton')
-    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startapp",my_app,frame2))
+    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startapp",my_app,frame2,fileDataName="apprunningdata.txt"))
     button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):

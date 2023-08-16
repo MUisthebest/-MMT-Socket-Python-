@@ -4,17 +4,32 @@ import os
 script_dir = os.path.dirname(__file__)
 file_path = os.path.join(script_dir, "GUI\\tempData\\apprunningData.txt") 
 
-def receiveRunningApp(clientsocket):
-    numberRunningApp = struct.unpack('!I', clientsocket.recv(4))[0]
-    print(numberRunningApp)
-    runningAppInfo = []
-    for i in range(numberRunningApp):
-        runningAppInfo.append(clientsocket.recv(1024).decode())
-        # print(runningAppInfo[-1])
-    with open(file_path, 'w', encoding="utf-8") as fo:
-        for pcInfo in runningAppInfo:
-            fo.write(pcInfo + '\n')
-            # print(type(pcInfo))
+def receive_string_list(clientsocket):
+    # First, receive the total byte-length
+    data_length = int.from_bytes(clientsocket.recv(4), 'big')
+
+    chunks = []
+    bytes_received = 0
+
+    while bytes_received < data_length:
+        chunk = clientsocket.recv(min(data_length - bytes_received, 4096))
+        if not chunk:
+            raise ConnectionError("Connection lost before receiving all data")
+        
+        chunks.append(chunk)
+        bytes_received += len(chunk)
+
+    data = b''.join(chunks).decode('utf-8')
+    return data.split('|')
 
     
+def receiveRunningApp(clientsocket):
+    data = receive_string_list(clientsocket)
+    with open(file_path, "w", encoding='utf-8') as fo:
+        for val in data:
+            fo.writelines(val + '\n')
+    print("DONE")
+
+def receiveStatus(clientsocket):
+    receiveRunningApp(clientsocket)
 

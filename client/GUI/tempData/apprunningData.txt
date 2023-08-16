@@ -1,8 +1,8 @@
-14260,listApp,13
-14260,Main Menu,13
-14208,Windows PowerShell,25
-2004,Visual Studio Code,41
-9548,NVIDIA GeForce Overlay,35
-9976,Microsoft​ Edge,63
-6664,,85
-6664,Program Manager,85
+10516,Kill,13
+10516,listApp,13
+10516,Main Menu,13
+2004,Visual Studio Code,42
+6664,Desktop,104
+9548,NVIDIA GeForce Overlay,36
+12104,Windows PowerShell,22
+6664,Program Manager,104
