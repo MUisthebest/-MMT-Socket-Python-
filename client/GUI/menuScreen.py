@@ -212,10 +212,10 @@ def notice3():
     l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)    
 
 def scr_window():
-    #if communicate.status_connection == 0:
-    #    notice1()
-    #    return
-    #notice3()
+    if communicate.status_connection == 0:
+       notice1()
+       return
+    notice3()
     my_scr = Toplevel(mainClient)
     my_scr.geometry("700x550")
     my_scr.configure(bg = COLOUR_BACKGROUND)
@@ -242,7 +242,11 @@ def scr_window():
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
 
-def send_keyLogger (txt):
+def send_keyLogger (txt):  
+    if communicate.status_connection == 0:
+       notice1()
+       return
+    notice3()
     script_dir = os.path.dirname(__file__)
     text_path = os.path.join(script_dir, "tempData/keylogger.txt")
     
@@ -264,10 +268,10 @@ def delete_Keystroke(s, txt):
     txt.delete(0, tk.END)
 
 def kst_window():
-    #if communicate.status_connection == 0:
-    #   notice1()
-    #return
-    #notice3()
+    if communicate.status_connection == 0:
+       notice1()
+       return
+    notice3()
     my_kst = Toplevel(mainClient)
     my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
@@ -290,10 +294,10 @@ def kst_window():
     txt.pack()
 
 def pcs_window():
-    #if communicate.status_connection == 0:
-    #   notice1()
-    #return
-    #notice3()
+    if communicate.status_connection == 0:
+       notice1()
+       return
+    notice3()
     my_pcs = Toplevel(mainClient)
     my_pcs.geometry("750x500")
     my_pcs.configure(bg = COLOUR_BACKGROUND)
@@ -340,10 +344,10 @@ def pcs_window():
 
 
 def app_window():
-    #if communicate.status_connection == 0:
-    #   notice1()
-    #return
-    #notice3()
+    if communicate.status_connection == 0:
+       notice1()
+       return
+    notice3()
     my_app = Toplevel(mainClient)
     my_app.geometry("750x500")
     my_app.configure(bg = COLOUR_BACKGROUND)
@@ -416,10 +420,10 @@ def on_combobox_type(combobox,choices2):
          click_button("Expandable String")   
  
 def rgt_window():
-    #if communicate.status_connection == 0:
-    #   notice1()
-    #return
-    #notice3()
+    if communicate.status_connection == 0:
+       notice1()
+       return
+    notice3()
     my_rgt = Toplevel(mainClient)
     my_rgt.geometry("550x590")
     my_rgt.configure(bg = COLOUR_BACKGROUND)
