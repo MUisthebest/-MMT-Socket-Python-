@@ -31,6 +31,12 @@ class MyStruct:
         self.string2 = string2
         self.string3 = string3
 
+class info():
+    def __init__(self,ID,Name,Thread):
+        self.ID = ID
+        self.Name = Name
+        self.Thread = Thread
+
 pcs_list = []
 app_list = []
 
@@ -43,7 +49,7 @@ def change_frame(frame):
     style2 = ttk.Style()
     style2.configure('Custom.TFrame', background= COLOUR_BACKGROUND)
     frame.configure(style='Custom.TFrame')
-    
+  
 
 def open_folder(root,textbox1,scrolledbox):
     file_path = filedialog.askopenfilename()
@@ -82,11 +88,11 @@ def notice6(root,s):
     l1 = Label(my_not6,text = 'Đã bật ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
-def kill(s,root,listbox_list,scrolled_text,txt):
+def kill(s,root,self):
     click_button(s)
-    if True:
-       do_clear(s,root, listbox_list, scrolled_text)
-       do_view(s,root,scrolled_text,listbox_list)
+    if True: 
+       delete(s,self)
+       insertText(s,self)
        notice4(root,s)
     else:
        notice5(root,s)
@@ -95,16 +101,16 @@ def kill(s,root,listbox_list,scrolled_text,txt):
     
            
            
-def start(s,root,listbox_list,scrolled_text,txt):
+def start(s,root,self):
     click_button(s)
     if True:
-       do_clear(s,root, listbox_list, scrolled_text)
-       do_view(s,root,scrolled_text,listbox_list)
+       delete(s,self)
+       insertText(s,self)
        notice6(root,s)
     else:
        notice5(root,s)
     
-def kill_window(s,root,listbox_list,scrolled_text):
+def kill_window(s,root,self):
     my_kll = Toplevel(root)
     my_kll.geometry("280x60")
     my_kll.configure(bg = COLOUR_BACKGROUND)
@@ -112,11 +118,11 @@ def kill_window(s,root,listbox_list,scrolled_text):
     txt = Entry(my_kll,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_kll, text="Kill",width=8,command = lambda: kill(s,root,listbox_list,scrolled_text,txt)).place(x=200, y=10)
+    Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self)).place(x=200, y=10)
 
     
     
-def start_window(s,root,listbox_list,scrolled_text):
+def start_window(s,root,self):
     my_sta = Toplevel(root)
     my_sta.geometry("280x60")
     my_sta.configure(bg = COLOUR_BACKGROUND)
@@ -124,78 +130,38 @@ def start_window(s,root,listbox_list,scrolled_text):
     txt = Entry(my_sta,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_sta, text = "Start", width = 8,command = lambda: start(s,root,listbox_list,scrolled_text,txt)).place(x = 200, y = 10)
+    Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self)).place(x = 200, y = 10)
 
-def do_kill(s,root,listbox_list,scrolled_text):
-    kill_window(s,root,listbox_list,scrolled_text)
+def do_kill(s,root,self):
+    kill_window(s,root,self)
     
 
-def do_start(s,root,listbox_list,scrolled_text):
-    start_window(s,root,listbox_list,scrolled_text)
+def do_start(s,root,self):
+    start_window(s,root,self)
 
 
-def do_clear(label,root, listbox_list, scrolled_text):
-    for frame in listbox_list:
-        for child in frame.winfo_children():
-            child.destroy()
-        frame.destroy()
-       
-    listbox_list.clear()
-    # Xóa nội dung của scrolled text
-    scrolled_text.delete("1.0", tk.END)
-    tframe = tk.Frame(scrolled_text)
-    tframe.pack(side="top")
-    listbox_list.append(tframe)
-        
-    # Gắn lại các ListBox đã xóa vào Frame
-    listbox_1 = tk.Listbox(tframe, width=35, height=1)
-    listbox_1.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
-    listbox_2 = tk.Listbox(tframe, width=35, height=1)
-    listbox_2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
-    listbox_3 = tk.Listbox(tframe, width=35, height=1)
-    listbox_3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
-    scrolled_text.window_create(tk.END, window=tframe)
-    if label == "clearproccess" or label == "startproccess" or label == "killprocess":
-       for i in range(3):
-           listbox_1.insert(tk.END, "ID Proccess")
-           listbox_2.insert(tk.END, "Name Proccess")
-           listbox_3.insert(tk.END, "Count Thread")
-    elif label == "clearapplication" or label == "startapplication" or label == "killapplication":
-         for i in range(3):
-          listbox_1.insert(tk.END, "ID Application")
-          listbox_2.insert(tk.END, "Name Application")
-          listbox_3.insert(tk.END, "Count Thread")
+def delete(s,self):
+    click_button(s)
+    for i in self.my_tree.get_children():
+        self.my_tree.delete(i)
     
-
-
-def do_view(label,root,scrolled_text,listbox_frames):
-    click_button(label)
+    
+def insertText(s,self):
+    click_button(s)
     script_dir = os.path.dirname(__file__)
     img_path = os.path.join(script_dir, "tempData\\processData.txt")
-    if communicate.command ==  label:
+    if communicate.command ==  s:
+       self.my_tree.delete()
        with open(img_path, 'r') as file:
             lines = file.readlines()
             for line in lines:
                 values = line.strip().split(',')
                 if len(values) == 3:
                    my_struct = MyStruct(values[0], values[1], values[2])
-                   tframe = tk.Frame(scrolled_text)
-                   tframe.pack(side="top")
-                   if label == "listprocess":
-                       pcs_list.append(tframe)
-                   else: app_list.append(tframe)
-                   listbox_1 = tk.Listbox(tframe, width=35, height=1)
-                   listbox_1.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-                   listbox_2 = tk.Listbox(tframe, width=35, height=1)
-                   listbox_2.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-                   listbox_3 = tk.Listbox(tframe, width=35, height=1)
-                   listbox_3.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-                   listbox_1.insert(tk.END,my_struct.string1)
-                   listbox_2.insert(tk.END,my_struct.string2)
-                   listbox_3.insert(tk.END,my_struct.string3)
-                   scrolled_text.insert(tk.END, '\n')
-                   scrolled_text.window_create(tk.END, window=tframe)
-       listbox_frames.clear()         
+                   self.my_tree.insert("", 'end', values= (values[0], values[1], values[2]))
+
+
+    
 
 
 def send_content(s):
@@ -336,34 +302,34 @@ def pcs_window():
     frame1 = ttk.Frame(my_pcs)
     change_frame(frame1)
     frame1.pack(side="top", pady=20)
-    # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
     frame2 = ttk.Frame(my_pcs)
     frame2.pack(side="top")
-    scrolled_text = scrolledtext.ScrolledText(frame2,height =50)
-    scrolled_text.pack()
-    tframe = tk.Frame(scrolled_text)
-    tframe.pack(side="top")
-    pcs_list.append(tframe)
-    listbox_1 = tk.Listbox(tframe, width=35, height=1)
-    listbox_1.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-    listbox_2 = tk.Listbox(tframe, width=35, height=1)
-    listbox_2.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-    listbox_3 = tk.Listbox(tframe, width=35, height=1)
-    listbox_3.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-    scrolled_text.insert(tk.END, '\n')
-    scrolled_text.window_create(tk.END, window=tframe)
-    listbox_1.insert(tk.END, "ID Proccess")
-    listbox_2.insert(tk.END, "Name Proccess")
-    listbox_3.insert(tk.END, "Count Thread")
-    frame2.pack(side="top", pady=10)
+    # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
+    cols = ("Name Application", "ID Application", "Court Thread")
+    frame2.my_tree = ttk.Treeview(frame2, column = cols, height= 10, selectmode = "browse", show = 'headings')
+    frame2.my_tree.column("#1", anchor= tk.CENTER, stretch= 'no', width= 175)
+    frame2.my_tree.heading("#1", text="Name Application")
+    frame2.my_tree.column("#2", anchor= tk.CENTER, stretch= 'no', width = 175)
+    frame2.my_tree.heading("#2", text="ID Application")
+    frame2.my_tree.column("#3", anchor= tk.CENTER, stretch= 'no', width = 175)
+    frame2.my_tree.heading("#3", text="Court Thread")
+    tree_scroll = ttk.Scrollbar(frame2, orient= "vertical")
+    tree_scroll.configure(command= frame2.my_tree.yview)
+    frame2.my_tree.configure(yscrollcommand= tree_scroll.set)
+    #position
+    frame2.my_tree.place(x = 24, y = 130)
+    tree_scroll.place(x = 552, y= 130, height= 226)
+    frame2.my_tree.pack(side=tk.LEFT, fill=tk.Y)
+    tree_scroll.pack(side=tk.LEFT, fill=tk.Y)
+    frame2.arrayInfo = []
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
-    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",frame1,pcs_list,scrolled_text))
-    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: do_view("listprocess",my_pcs,scrolled_text,pcs_list))
+    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",my_pcs,frame2))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: do_clear("clearproccess",my_pcs,pcs_list,scrolled_text))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete("clearproccess",frame2))
     button3.configure(style='TButton')
-    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startproccess",frame1,pcs_list,scrolled_text))
+    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startproccess",my_pcs,frame2))
     button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
@@ -388,38 +354,37 @@ def app_window():
     frame1.pack(side="top", pady=20)
     frame2 = ttk.Frame(my_app)
     frame2.pack(side="top")
-    scrolled_text = scrolledtext.ScrolledText(frame2,height =50)
-    tframe = tk.Frame(scrolled_text)
-    tframe.pack(side="top")
-    app_list.append(tframe)
-    listbox_1 = tk.Listbox(tframe, width=35, height=1)
-    listbox_1.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-    listbox_2 = tk.Listbox(tframe, width=35, height=1)
-    listbox_2.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-    listbox_3 = tk.Listbox(tframe, width=35, height=1)
-    listbox_3.pack(side=tk.LEFT,fill=tk.BOTH, expand=True,padx=5)
-    scrolled_text.insert(tk.END, '\n')
-    scrolled_text.window_create(tk.END, window=tframe)
-    listbox_1.insert(tk.END, "ID Application")
-    listbox_2.insert(tk.END, "Name Application")
-    listbox_3.insert(tk.END, "Count Thread")
-    frame2.pack(side="top", pady=10)
-    scrolled_text.pack()
+    cols = ("Name Application", "ID Application", "Court Thread")
+    frame2.my_tree = ttk.Treeview(frame2, column = cols, height= 10, selectmode = "browse", show = 'headings')
+    frame2.my_tree.column("#1", anchor= tk.CENTER, stretch= 'no', width= 175)
+    frame2.my_tree.heading("#1", text="Name Application")
+    frame2.my_tree.column("#2", anchor= tk.CENTER, stretch= 'no', width = 175)
+    frame2.my_tree.heading("#2", text="ID Application")
+    frame2.my_tree.column("#3", anchor= tk.CENTER, stretch= 'no', width = 175)
+    frame2.my_tree.heading("#3", text="Court Thread")
+    tree_scroll = ttk.Scrollbar(frame2, orient= "vertical")
+    tree_scroll.configure(command= frame2.my_tree.yview)
+    frame2.my_tree.configure(yscrollcommand= tree_scroll.set)
+    #position
+    frame2.my_tree.place(x = 24, y = 130)
+    tree_scroll.place(x = 552, y= 130, height= 226)
+    frame2.my_tree.pack(side=tk.LEFT, fill=tk.Y)
+    tree_scroll.pack(side=tk.LEFT, fill=tk.Y)
+    frame2.arrayInfo = []
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
-    button1 = ttk.Button(frame1, text="Kill", width=20,  command = lambda: do_kill("killproccess",frame1,app_list,scrolled_text))
-    button1.configure(style='TButton')
-    button2 = ttk.Button(frame1, text="Xem", width=20,command = lambda: do_view("listrunningapp",my_app,scrolled_text,app_list))
+    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",my_app,frame2))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20, command = lambda: do_clear("clearrunningapp",my_app,app_list,scrolled_text))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete("clearproccess",frame2))
     button3.configure(style='TButton')
-    button4 = ttk.Button(frame1, text="Start", width=20, command = lambda: do_start("startrunningapp",frame1,app_list,scrolled_text))
+    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startproccess",my_app,frame2))
     button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
     # Chạy chương trình
-    my_app.mainloop()
+    my_pcs.mainloop()
 
 def on_combobox_choose(combobox,choices1):
         selected_choice = combobox.get()
