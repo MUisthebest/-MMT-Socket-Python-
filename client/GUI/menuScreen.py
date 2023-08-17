@@ -230,6 +230,7 @@ def scr_window():
     my_scr.configure(bg = COLOUR_BACKGROUND)
     my_scr.title('Server Screen')
     my_scr.resizable(False, False)
+    my_scr.grab_set()
     communicate.src_screen = my_scr
 
     label = Label(my_scr, bg = "#FFFFFF", width=65, height=30) #width = img_width/3.5, height = img_height/3.2)
@@ -286,6 +287,7 @@ def kst_window():
     my_kst.configure(bg = COLOUR_BACKGROUND)
     my_kst.title('Keystroke')
     my_kst.resizable(False, False)
+    my_kst.grab_set()
     frame1 = ttk.Frame(my_kst)
     change_frame(frame1)
     frame1.pack(side="top", pady=20)
@@ -311,6 +313,7 @@ def pcs_window():
     my_pcs.configure(bg = COLOUR_BACKGROUND)
     my_pcs.title('process')
     my_pcs.resizable(False, False)
+    my_pcs.grab_set()
     frame1 = ttk.Frame(my_pcs)
     change_frame(frame1)
     frame1.pack(side="top", pady=20)
@@ -363,6 +366,7 @@ def app_window():
     my_app.configure(bg = COLOUR_BACKGROUND)
     my_app.title('listApp')
     my_app.resizable(False, False)
+    my_app.grab_set()
     frame1 = ttk.Frame(my_app)
     change_frame(frame1)
     frame1.pack(side="top", pady=20)
