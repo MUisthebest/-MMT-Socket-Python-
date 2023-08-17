@@ -5,7 +5,7 @@ from tkinter import ttk
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import Toplevel, Label, Button, PhotoImage
-from PIL import Image, ImageTk
+# from PIL import Image, ImageTk
 from tkinter.scrolledtext import ScrolledText
 import queue
 
@@ -213,6 +213,14 @@ def notice3():
     my_not3.title('')
     l1 = Label(my_not3,text = 'Kết nối đến server thành công',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)    
 
+def notice7():
+    my_not7 = Toplevel(mainClient)
+    my_not7.geometry("250x250")
+    my_not7.configure(bg = COLOUR_BACKGROUND)
+    my_not7.title('')
+    l1 = Label(my_not7,text = 'Ngắt kết nối thành công ',bg = COLOUR_BACKGROUND,fg = '#272829',activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+
+
 def scr_window():
     if communicate.status_connection == 0:
        notice1()
@@ -243,11 +251,12 @@ def scr_window():
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
 
-def send_keyLogger (txt):  
-    if communicate.status_connection == 0:
-       notice1()
-       return
-    notice3()
+def send_keyLogger (s, txt):  
+    click_button(s)
+    # if communicate.status_connection == 0:
+    #    notice1()
+    #    return
+    # notice3()
     script_dir = os.path.dirname(__file__)
     text_path = os.path.join(script_dir, "tempData/keylogger.txt")
     
@@ -257,7 +266,7 @@ def send_keyLogger (txt):
             content = file.read()
             
         # Clear the existing content from the Listbox
-        txt.delete(0, tk.END)
+        txt.delete("1.0", tk.END)
         
         # Insert the new content into the Listbox
         txt.insert(tk.END, content)
@@ -266,7 +275,7 @@ def send_keyLogger (txt):
 
 def delete_Keystroke(s, txt):
     click_button(s)
-    txt.delete(0, tk.END)
+    txt.delete("1.0", tk.END)
 
 def kst_window():
     if communicate.status_connection == 0:
@@ -282,14 +291,14 @@ def kst_window():
     frame1.pack(side="top", pady=20)
     button1 = ttk.Button(frame1, text="Hook", width=20, command=lambda: click_button("hook"))
     button2 = ttk.Button(frame1, text="Unhook", width=20, command=lambda: click_button("unhook"))
-    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: click_button("sendkeylogger"))
+    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: send_keyLogger("sendkeylogger", txt))
     button4 = ttk.Button(frame1, text="Xóa", width=20, command=lambda: delete_Keystroke("deletecontentkeylogger", txt))
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
     frame2 = ttk.Frame(my_kst)
     frame2.pack(side="top",pady=15)
-    txt = Listbox(frame2,width=100,height=25)
+    txt = ScrolledText(frame2,width=100,height=25)
     communicate.keylogger_txt = txt
     txt.pack()
 
@@ -544,7 +553,7 @@ def get_ip(entryBox):
     ip = entryBox.get()
     communicate.ipHost = ip
     communicate.status_connection = 1
-    while communicate.status_connection == 1 : pass
+    while communicate.status_connection != 1 : pass
     if communicate.status_connection == 2 :
        notice3()   
     else:
@@ -563,6 +572,13 @@ def validate_input(char):
     else:
         return False
 
+def disconnect_work (s):
+    if communicate.command == 0 : 
+        notice1()
+        return
+    else : 
+        click_button(s)
+        notice7()
 
 
 
@@ -587,7 +603,7 @@ def draw ():
     buttonTurnOff.grid(row = 2, column = 1, sticky = W)
     buttonCap = Button(mainClient, text = "Print\n\nScreen", font = fontWord, width = 15, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: scr_window(), padx = 10, pady = 33)
     buttonCap.grid(row = 2, column = 1, sticky = E)
-    buttonRegistry = Button(mainClient, text = "Fix Registry", font = fontWord, width = 26, bg = COLOUR_BUTTON, fg = COLOUR_FONT, command = lambda: rgt_window(), padx = 20, pady = 33)
+    buttonRegistry = Button(mainClient, text = "Disconnect Server", font = fontWord, width = 26, bg = COLOUR_BUTTON, fg = COLOUR_FONT, command = lambda: disconnect_work("disconnect"), padx = 20, pady = 33)
     buttonRegistry.grid(row = 3, column = 1, sticky = 'EW')
     buttonKeyStroke = Button(mainClient, text = "Keystroke", font = fontWord, width = 20, bg = COLOUR_BUTTON, fg = COLOUR_FONT,command = lambda: kst_window(), padx = 50, pady = 95)
     buttonKeyStroke.grid(row = 1, column = 2, rowspan = 2)
