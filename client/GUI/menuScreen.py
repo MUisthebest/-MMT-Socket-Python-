@@ -92,7 +92,7 @@ def kill(s, root, self):
     click_button(s)
     if True: 
        delete(self)
-       click_button(s)
+       insertText(self,"processData.txt")
        notice4(root,s)
     else:
        notice5(root,s)
@@ -105,7 +105,7 @@ def start(s, root, self):
     click_button(s)
     if True:
        delete(self)
-       click_button(s)
+       insertText(self,"processData.txt")
        notice6(root,s)
     else:
        notice5(root,s)
