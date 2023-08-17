@@ -31,6 +31,7 @@ def handleClientSocket(clientsocket):
             elif flag == "killrunningapp" : 
                 parameter = int(parameter)
                 handleRunningApp.killRunningApp(clientsocket, parameter)
+            elif flag == "openapp": handleRunningApp.openApp(clientsocket, parameter)
             elif flag == "shutdown" : controlOS.shutdown()
             elif flag == "hook": keylogger.startedKeyLogger()
             elif flag == "unhook": config.hook = False 

@@ -10,10 +10,11 @@ queue_to_main = None
 keylogger_txt = None
 frameRunningApp = None 
 frameProcess = None
+status = ""
 
 def init():
     global ipHost, command, status_connection, src_screen, queue_to_main, keylogger_txt
-    global frameRunningApp, frameProcess
+    global frameRunningApp, frameProcess, status
     ipHost = ''
     command = '' 
     status_connection = 0
@@ -22,4 +23,5 @@ def init():
     keylogger_txt = None
     frameRunningApp = None 
     frameProcess = None
+    status = None
 

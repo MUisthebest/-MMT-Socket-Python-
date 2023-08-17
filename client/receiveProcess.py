@@ -17,4 +17,4 @@ def receiveProcess(clientsocket):
     communicate.queue_to_main.put("displayprocess")
 
 def receiveStatus(clientsocket):
-    print(clientsocket.recv(1024).decode())
+    communicate.status = clientsocket.recv(1024).decode()

@@ -33,5 +33,4 @@ def receiveRunningApp(clientsocket):
     print("DONE")
 
 def receiveStatus(clientsocket):
-    receiveRunningApp(clientsocket)
-
+    communicate.status = clientsocket.recv(1024).decode()

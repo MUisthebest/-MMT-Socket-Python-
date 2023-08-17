@@ -2,17 +2,28 @@ import psutil
 import struct
 import signal
 import os
-import handleProcess
 from pywinauto import Desktop
+from AppOpener import open
+
+
+def openApp(clientsocket, appName):
+    try:
+        open(appName)
+        clientsocket.send("ok".encode())
+    except:
+        clientsocket.send("err".encode())
+
+
 
 def killRunningApp(clientsocket, pid):
     try:
         os.kill(pid, signal.SIGTERM)
-    except Exception as e:
-        pass
+        clientsocket.send("ok".encode())
+    except:
+        clientsocket.send("err".encode())
     
     # Sending a response to the client about the result
-    listRunningApp(clientsocket)
+    # listRunningApp(clientsocket)
 
 def checkValidApp(w):
     try:

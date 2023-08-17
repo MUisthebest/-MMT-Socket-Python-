@@ -46,6 +46,7 @@ def start_client():
         elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
         elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)
         elif flag == "killrunningapp": receiveRunningApp.receiveStatus(clientsocket)
+        elif flag == "openapp": receiveRunningApp.receiveStatus(clientsocket)
         elif flag == "hook" or flag == "unhook": pass #chua
         elif flag == "sendkeylogger": receiveKeylogger(clientsocket) #chua
         elif flag == "shutdown": break
@@ -54,6 +55,7 @@ def start_client():
             print('Received from server: ', data.decode('ascii'))
         if flag == 'QUIT': break
         communicate.command = ''
+        communicate.status = ""
     clientsocket.close()
     communicate.init()
     return True

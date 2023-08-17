@@ -1,7 +1,9 @@
-20680,Kill,10
-20680,listApp,10
-8412,Visual Studio Code,41
-4296,Windows PowerShell,16
-20680,Main Menu,10
-13012,NVIDIA GeForce Overlay,32
-18092,Program Manager,89
+13464,listApp,13
+13464,Start,13
+17064,Discord,50
+13464,Main Menu,13
+1748,Windows PowerShell,17
+10364,Visual Studio Code,42
+18624,Microsoft​ Edge,58
+13012,NVIDIA GeForce Overlay,35
+18092,Program Manager,72
