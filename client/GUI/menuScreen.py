@@ -5,7 +5,7 @@ from tkinter import ttk
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import Toplevel, Label, Button, PhotoImage
-# from PIL import Image, ImageTk
+from PIL import Image, ImageTk
 from tkinter.scrolledtext import ScrolledText
 import queue
 
@@ -88,11 +88,11 @@ def notice6(root,s):
     l1 = Label(my_not6,text = 'Đã bật ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
-def kill(s, root, self, fileDataName = "processData.txt"):
+def kill(s, root, self):
     click_button(s)
     if True: 
-       delete(s,self)
-       insertText(s,self, fileDataName = fileDataName)
+       delete(self)
+       click_button(s)
        notice4(root,s)
     else:
        notice5(root,s)
@@ -101,16 +101,16 @@ def kill(s, root, self, fileDataName = "processData.txt"):
     
            
            
-def start(s, root, self, fileDataName = "processData.txt"):
+def start(s, root, self):
     click_button(s)
     if True:
-       delete(s,self)
-       insertText(s,self, fileDataName = fileDataName)
+       delete(self)
+       click_button(s)
        notice6(root,s)
     else:
        notice5(root,s)
     
-def kill_window(s,root,self,fileDataName = "processData.txt"):
+def kill_window(s,root,self):
     my_kll = Toplevel(root)
     my_kll.geometry("280x60")
     my_kll.configure(bg = COLOUR_BACKGROUND)
@@ -118,11 +118,11 @@ def kill_window(s,root,self,fileDataName = "processData.txt"):
     txt = Entry(my_kll,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self,fileDataName)).place(x=200, y=10)
+    Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self)).place(x=200, y=10)
 
     
     
-def start_window(s,root,self,fileDataName = "processData.txt"):
+def start_window(s,root,self):
     my_sta = Toplevel(root)
     my_sta.geometry("280x60")
     my_sta.configure(bg = COLOUR_BACKGROUND)
@@ -130,36 +130,35 @@ def start_window(s,root,self,fileDataName = "processData.txt"):
     txt = Entry(my_sta,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self,fileDataName)).place(x = 200, y = 10)
+    Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self)).place(x = 200, y = 10)
 
-def do_kill(s,root,self,fileDataName = "processData.txt"):
-    kill_window(s,root,self,fileDataName)
+def do_kill(s,root,self):
+    kill_window(s,root,self)
     
 
-def do_start(s,root,self,fileDataName = "processData.txt"):
-    start_window(s,root,self,fileDataName)
+def do_start(s,root,self):
+    start_window(s,root,self)
 
 
-def delete(s,self):
-    click_button(s)
+def delete(self):
+    # click_button(s)
     for i in self.my_tree.get_children():
         self.my_tree.delete(i)
     
     
-def insertText(s, self, fileDataName = "processData.txt"):
-    click_button(s)
-    delete(s, self)
+def insertText(self, fileDataName = "processData.txt"):
+    # click_button(s)
+    delete(self)
     script_dir = os.path.dirname(__file__)
     img_path = os.path.join(script_dir, "tempData\\" + fileDataName)
-    if communicate.command ==  s:
-       self.my_tree.delete()
-       with open(img_path, 'r', encoding='utf-8') as file:
-            lines = file.readlines()
-            for line in lines:
-                values = line.strip().split(',')
-                if len(values) == 3:
-                   my_struct = MyStruct(values[0], values[1], values[2])
-                   self.my_tree.insert("", 'end', values= (values[0], values[1], values[2]))
+    self.my_tree.delete()
+    with open(img_path, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+        for line in lines:
+            values = line.strip().split(',')
+            if len(values) == 3:
+                my_struct = MyStruct(values[0], values[1], values[2])
+                self.my_tree.insert("", 'end', values= (values[0], values[1], values[2]))
                 
 
 
@@ -251,8 +250,8 @@ def scr_window():
     buton1.place(x = 600, y = 65 )
     buton2.place(x = 600, y = 380 )
 
-def send_keyLogger (s, txt):  
-    click_button(s)
+def send_keyLogger (txt):  
+    # click_button(s)
     # if communicate.status_connection == 0:
     #    notice1()
     #    return
@@ -273,14 +272,21 @@ def send_keyLogger (s, txt):
     except FileNotFoundError:
         print("Keylogger file not found.")
 
-def delete_Keystroke(s, txt):
-    click_button(s)
+def delete_Keystroke(txt):
+    script_dir = os.path.dirname(__file__)
+    filePath = os.path.join(script_dir, "tempData/keylogger.txt")
+    with open(filePath, "w") as fi:
+        pass 
     txt.delete("1.0", tk.END)
 
 def kst_window():
     if communicate.status_connection == 0:
        notice1()
        return
+    script_dir = os.path.dirname(__file__)
+    filePath = os.path.join(script_dir, "tempData/keylogger.txt")
+    with open(filePath, "w") as fi:
+        pass 
     my_kst = Toplevel(mainClient)
     my_kst.geometry("750x500")
     my_kst.configure(bg = COLOUR_BACKGROUND)
@@ -291,8 +297,9 @@ def kst_window():
     frame1.pack(side="top", pady=20)
     button1 = ttk.Button(frame1, text="Hook", width=20, command=lambda: click_button("hook"))
     button2 = ttk.Button(frame1, text="Unhook", width=20, command=lambda: click_button("unhook"))
-    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: send_keyLogger("sendkeylogger", txt))
-    button4 = ttk.Button(frame1, text="Xóa", width=20, command=lambda: delete_Keystroke("deletecontentkeylogger", txt))
+    # button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: send_keyLogger("sendkeylogger", txt))
+    button3 = ttk.Button(frame1, text="In phím", width=20, command=lambda: click_button("sendkeylogger"))
+    button4 = ttk.Button(frame1, text="Xóa", width=20, command=lambda: delete_Keystroke(txt))
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
@@ -315,6 +322,8 @@ def pcs_window():
     change_frame(frame1)
     frame1.pack(side="top", pady=20)
     frame2 = ttk.Frame(my_pcs)
+    communicate.frameProcess = frame2
+    if communicate.frameProcess == None : print("wtf")
     frame2.pack(side="top")
     # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
     cols = ("ID Process", "Name Process", "Count Thread")
@@ -337,9 +346,10 @@ def pcs_window():
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
     button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",my_pcs,frame2))
-    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
+    # button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: click_button("listprocess"))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete("clearproccess",frame2))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete(frame2))
     button3.configure(style='TButton')
     button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startproccess",my_pcs,frame2))
     button4.configure(style='TButton')
@@ -367,6 +377,7 @@ def app_window():
     change_frame(frame1)
     frame1.pack(side="top", pady=20)
     frame2 = ttk.Frame(my_app)
+    communicate.frameRunningApp = frame2
     frame2.pack(side="top")
     cols = ("Id Application", "Name Application", "Count Thread")
     frame2.my_tree = ttk.Treeview(frame2, column = cols, height= 10, selectmode = "browse", show = 'headings')
@@ -387,12 +398,12 @@ def app_window():
     frame2.arrayInfo = []
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
-    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killrunningapp",my_app,frame2, fileDataName="apprunningdata.txt"))
-    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listrunningapp",frame2,fileDataName="apprunningdata.txt"))
+    button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killrunningapp",my_app,frame2))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: click_button("listrunningapp"))
     button2.configure(style='TButton')
-    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete("clearrunningapp",frame2))
+    button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete(frame2))
     button3.configure(style='TButton')
-    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startapp",my_app,frame2,fileDataName="apprunningdata.txt"))
+    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startapp",my_app,frame2))
     button4.configure(style='TButton')
     button_list = [button1, button2, button3, button4]
     for i in range(len(button_list)):
@@ -553,7 +564,7 @@ def get_ip(entryBox):
     ip = entryBox.get()
     communicate.ipHost = ip
     communicate.status_connection = 1
-    while communicate.status_connection != 1 : pass
+    while communicate.status_connection == 1 : pass
     if communicate.status_connection == 2 :
        notice3()   
     else:
@@ -632,7 +643,10 @@ def check_queue():
             displayImage(communicate.src_screen)
         elif command == "displaykeylogger":
             send_keyLogger(communicate.keylogger_txt)
-            
+        elif command == "displayprocess":
+            insertText(communicate.frameProcess)
+        elif command == "displayrunningapp":
+            insertText(communicate.frameRunningApp, "apprunningData.txt")
 
     # Schedule the check_queue to run again after 100ms
     mainClient.after(100, check_queue)

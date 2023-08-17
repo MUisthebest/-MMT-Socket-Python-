@@ -1,3 +1,4 @@
+from GUI import communicate
 import struct
 import os
 
@@ -28,6 +29,7 @@ def receiveRunningApp(clientsocket):
     with open(file_path, "w", encoding='utf-8') as fo:
         for val in data:
             fo.writelines(val + '\n')
+    communicate.queue_to_main.put("displayrunningapp")
     print("DONE")
 
 def receiveStatus(clientsocket):

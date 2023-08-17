@@ -4,7 +4,6 @@ from PIL import Image
 from GUI import menuScreen
 from GUI import communicate
 import struct
-import queue
 import io
 import os 
 script_dir = os.path.dirname(__file__)

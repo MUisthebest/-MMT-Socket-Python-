@@ -1,3 +1,4 @@
+from GUI import communicate
 import struct
 import os
 
@@ -13,6 +14,7 @@ def receiveProcess(clientsocket):
     with open(file_path, 'w') as fo:
         for pcInfo in processInfo:
             fo.write(pcInfo + '\n')
+    communicate.queue_to_main.put("displayprocess")
 
 def receiveStatus(clientsocket):
     print(clientsocket.recv(1024).decode())
