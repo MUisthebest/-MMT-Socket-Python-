@@ -6,7 +6,7 @@ processDone = False
 status_connection = 0  #0 : disconnect, 1 : connecting, 2 : connected
 src_screen = None
 blackListCommand = ["saveimage"]
-queue_to_main = None
+queue_to_main = queue.Queue()
 keylogger_txt = None
 frameRunningApp = None 
 frameProcess = None
@@ -23,7 +23,7 @@ def init():
     command = ''
     status_connection = 0
     src_screen = None
-    queue_to_main = None
+    queue_to_main = queue.Queue()
     keylogger_txt = None
     frameRunningApp = None 
     frameProcess = None

@@ -49,6 +49,10 @@ def start_client():
         elif flag == "openapp": receiveRunningApp.receiveStatus(clientsocket)
         elif flag == "hook" or flag == "unhook": pass #chua
         elif flag == "sendkeylogger": receiveKeylogger(clientsocket) #chua
+        elif flag == "disconnect":
+            clientsocket.close()
+            communicate.init()
+            return False
         elif flag == "shutdown": break
         else:
             data = clientsocket.recv(1024)
