@@ -5,10 +5,9 @@ from tkinter import ttk
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import Toplevel, Label, Button, PhotoImage
-from PIL import Image, ImageTk
+# from PIL import Image, ImageTk
 from tkinter.scrolledtext import ScrolledText
 import queue
-import time
 
 import os
 import time
@@ -70,14 +69,16 @@ def notice4(root,s):
     my_not4.geometry("250x250")
     my_not4.configure(bg = COLOUR_BACKGROUND)
     my_not4.title('')
-    l1 = Label(my_not4,text =  'Đã diệt ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    data  = s.split()
+    l1 = Label(my_not4,text =  'Đã diệt ' + s, bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 def notice5(root,s):
     my_not5 = Toplevel(root)
     my_not5.geometry("250x250")
     my_not5.configure(bg = COLOUR_BACKGROUND)
     my_not5.title('')
-    l1 = Label(my_not5,text = 'Không tồn tại ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    data = s.split()
+    l1 = Label(my_not5,text = 'Không tồn tại ' + data[1], bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 # Điều kiện của Start
 
@@ -86,15 +87,15 @@ def notice6(root,s):
     my_not6.geometry("250x250")
     my_not6.configure(bg = COLOUR_BACKGROUND)
     my_not6.title('')
-    l1 = Label(my_not6,text = 'Đã bật ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    data = s.split()
+    l1 = Label(my_not6,text = 'Đã bật ' + data[1], bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
 def kill(s, root, self, filename = "processData.txt"):
-    if communicate.status == "kill_ok": 
+    click_button(s)
+    if True: 
        delete(self)
-       time.sleep(1)
-       if filename == "processData.txt":click_button("listprocess")
-       if filename == "apprunningData.txt":click_button("listrunningapp")
+       insertText(self,filename)
        notice4(root,s)
     else:
        notice5(root,s)
@@ -104,13 +105,10 @@ def kill(s, root, self, filename = "processData.txt"):
            
            
 def start(s, root, self, filename = "processData.txt"):
-    # click_button(s)
-    if communicate.status == "open_ok":
+    click_button(s)
+    if True:
        delete(self)
-       time.sleep(1)
-       if filename == "processData.txt":click_button("listprocess")
-       if filename == "apprunningData.txt":
-           click_button("listrunningapp")
+       insertText(self,filename)
        notice6(root,s)
     else:
        notice5(root,s)
@@ -123,11 +121,7 @@ def kill_window(s,root,self, filename = "processData.txt"):
     txt = Entry(my_kll,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    communicate.root_kill = root 
-    communicate.self_kill = self
-    # Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self, filename)).place(x=200, y=10)
-    Button(my_kll, text="Kill",width=8,command = lambda: click_button(s + " " + txt.get())).place(x=200, y=10)
-    communicate.kill_id = s + " " + txt.get()
+    Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self, filename)).place(x=200, y=10)
 
     
     
@@ -139,11 +133,7 @@ def start_window(s,root,self, filename = "processData.txt"):
     txt = Entry(my_sta,width=30)
     txt.place(x=1, y=10)
     txt.focus()
-    communicate.root_start = root 
-    communicate.self_start = self
-    # Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self, filename)).place(x = 200, y = 10)
-    Button(my_sta, text = "Start", width = 8,command = lambda: click_button(s + " " + txt.get())).place(x = 200, y = 10)
-    communicate.start_id = s + " " + txt.get()
+    Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self, filename)).place(x = 200, y = 10)
 
 def do_kill(s,root,self, filename = "processData.txt"):
     kill_window(s,root,self, filename)
@@ -339,6 +329,7 @@ def pcs_window():
     frame1.pack(side="top", pady=20)
     frame2 = ttk.Frame(my_pcs)
     communicate.frameProcess = frame2
+    if communicate.frameProcess == None : print("wtf")
     frame2.pack(side="top")
     # Tạo listbox và đặt chúng ngang hàng nhau trong scrolledtext của frame 2
     cols = ("ID Process", "Name Process", "Count Thread")
@@ -682,15 +673,6 @@ def check_queue():
             insertText(communicate.frameProcess)
         elif command == "displayrunningapp":
             insertText(communicate.frameRunningApp, "apprunningData.txt")
-        elif command == "kill_ok_process":
-            kill(communicate.kill_id, communicate.root_kill, communicate.self_kill)
-        elif command == "open_ok_process":
-            start(communicate.start_id, communicate.root_start, communicate.self_start)
-        elif command == "kill_err_app":
-            kill(communicate.kill_id, communicate.root_kill, communicate.self_kill, "apprunningData.txt")
-        elif command == "open_err_app":
-            start(communicate.start_id, communicate.root_start, communicate.self_start, "apprunningData.txt")
-        print(command)
 
     # Schedule the check_queue to run again after 100ms
     mainClient.after(100, check_queue)
