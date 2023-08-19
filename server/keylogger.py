@@ -1,7 +1,7 @@
 from pynput import keyboard
 import threading
 import struct
-import config
+from GUI import config
 import os
 
 script_dir = os.path.dirname(__file__)

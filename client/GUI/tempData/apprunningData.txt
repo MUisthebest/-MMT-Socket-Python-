@@ -1,8 +1,8 @@
-17920,listApp,13
-17920,Main Menu,13
-20236,Windows PowerShell,22
-13544,Visual Studio Code,41
-13748,Microsoft​ Edge,61
-10564,tes,89
-13564,NVIDIA GeForce Overlay,34
-10564,Program Manager,89
+8988,listApp,13
+8988,Main Menu,13
+5324,Sever,16
+12812,Visual Studio Code,40
+8344,Microsoft​ Edge,54
+16272,NVIDIA GeForce Overlay,32
+7448,Windows PowerShell,25
+6088,Program Manager,77

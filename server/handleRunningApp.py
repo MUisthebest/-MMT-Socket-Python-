@@ -1,5 +1,4 @@
 import psutil
-import struct
 import signal
 import sys
 import os

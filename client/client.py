@@ -28,37 +28,43 @@ def start_client():
         clientsocket.close()
         communicate.init()
         return False
-    while True:
-        # command = input("Enter message to send to server: ")
+    try:
         while True:
-            if communicate.command != '' : 
-                command = communicate.command
-                break
-        if valid(command) : clientsocket.send(command.encode('ascii'))
-        command = list(map(str, command.split()))
-        flag = command[0]
-        parameter = -1
-        if len(command) > 1 : parameter = command[1]
-        
-        if flag == "screenshot": receiveScreenShot.readImage(clientsocket)
-        elif flag == "saveimage": receiveScreenShot.saveImage()
-        elif flag == "listprocess": receiveProcess.receiveProcess(clientsocket)
-        elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
-        elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)
-        elif flag == "killrunningapp": receiveRunningApp.receiveStatus(clientsocket)
-        elif flag == "openapp": receiveRunningApp.receiveStatus(clientsocket)
-        elif flag == "hook" or flag == "unhook": pass #chua
-        elif flag == "sendkeylogger": receiveKeylogger(clientsocket) #chua
-        elif flag == "disconnect":
-            clientsocket.close()
-            communicate.init()
-            return False
-        elif flag == "shutdown": break
-        else:
-            data = clientsocket.recv(1024)
-            print('Received from server: ', data.decode('ascii'))
-        if flag == 'QUIT': break
-        communicate.command = ''
+            # command = input("Enter message to send to server: ")
+            while True:
+                if communicate.command != '' : 
+                    command = communicate.command
+                    break
+            if valid(command) : clientsocket.send(command.encode('ascii'))
+            command = list(map(str, command.split()))
+            flag = command[0]
+            parameter = -1
+            if len(command) > 1 : parameter = command[1]
+            
+            if flag == "screenshot": receiveScreenShot.readImage(clientsocket)
+            elif flag == "saveimage": receiveScreenShot.saveImage()
+            elif flag == "listprocess": receiveProcess.receiveProcess(clientsocket)
+            elif flag == "killprocess": receiveProcess.receiveStatus(clientsocket)
+            elif flag == "listrunningapp": receiveRunningApp.receiveRunningApp(clientsocket)
+            elif flag == "killrunningapp": receiveRunningApp.receiveStatus(clientsocket)
+            elif flag == "openapp": receiveRunningApp.receiveStatus(clientsocket)
+            elif flag == "hook" or flag == "unhook": pass #chua
+            elif flag == "sendkeylogger": receiveKeylogger(clientsocket) #chua
+            elif flag == "disconnect":
+                clientsocket.close()
+                communicate.init()
+                return False
+            elif flag == "shutdown": break
+            else:
+                data = clientsocket.recv(1024)
+                print('Received from server: ', data.decode('ascii'))
+            if flag == 'QUIT': break
+            communicate.command = ''
+    except:
+        clientsocket.close()
+        communicate.init()
+        print("wtf")
+        return False
     clientsocket.close()
     communicate.init()
     return True

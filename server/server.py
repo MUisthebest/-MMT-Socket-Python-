@@ -4,16 +4,18 @@ import handleProcess
 import handleRunningApp
 import controlOS
 import keylogger
-import config
+from GUI import menuSever
+from GUI import config
 from sendScreenShot import sendScreenShot
 
 
 def handleClientSocket(clientsocket):
-
-    while True:
+    clientsocket.settimeout(2)
+    while config.openServer:
         try:
             command = clientsocket.recv(1024).decode('ascii')
-            print(command)
+            # print(command)
+            print(config.openServer)
             if not command: 
                 print("goodbye")
                 break
@@ -39,6 +41,8 @@ def handleClientSocket(clientsocket):
             else:
                 msg = 'Echo => '+ flag
                 clientsocket.send(msg.encode('ascii'))
+        except socket.timeout:
+            continue
         except:
             print("goodbye (err)") 
             break
@@ -46,18 +50,25 @@ def handleClientSocket(clientsocket):
     clientsocket.close()
  
 def start_server():
+    while (not(config.openServer)): pass
     keylogger.deleteKeyLoggerFile()
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = ''
     port = 8000
     serversocket.bind((host, port))
     serversocket.listen(5)
-    while True:
-        print("Waiting for client...")
-        clientsocket, addr = serversocket.accept()
-        print("Got a connection from %s" % str(addr))
-        client_handler = threading.Thread(target=handleClientSocket, args=(clientsocket,))
-        client_handler.start()
+    serversocket.settimeout(2)
+    while config.openServer:
+        try:
+            clientsocket, addr = serversocket.accept()
+            print("Got a connection from %s" % str(addr))
+            client_handler = threading.Thread(target=handleClientSocket, args=(clientsocket,))
+            client_handler.start()
+        except socket.timeout:
+            continue
 
 if __name__ == "__main__":
-    start_server()
+    startServer = threading.Thread(target=start_server)
+    startServer.start()
+    menuSever.runServerGUI()
+
