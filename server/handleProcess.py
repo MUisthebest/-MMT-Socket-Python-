@@ -7,9 +7,9 @@ import os
 def killProcess(clientsocket, pid):
     try:
         os.kill(pid, signal.SIGTERM)
-        clientsocket.send("ok".encode())
+        clientsocket.send("kill_ok".encode())
     except:
-        clientsocket.send("err".encode())
+        clientsocket.send("kill_err".encode())
 
 # Iterate over all running process
 def listProcess(clientsocket):

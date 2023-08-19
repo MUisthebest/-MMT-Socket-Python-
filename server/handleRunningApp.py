@@ -1,26 +1,37 @@
 import psutil
 import struct
 import signal
+import sys
 import os
+from io import StringIO
 from pywinauto import Desktop
 from AppOpener import open
 
 
 def openApp(clientsocket, appName):
-    try:
-        open(appName)
-        clientsocket.send("ok".encode())
-    except:
-        clientsocket.send("err".encode())
+    original_stdout = sys.stdout
+    captured_output = StringIO()
+    sys.stdout = captured_output
+
+    open(appName)
+    # Reset the stdout back to original and get the message
+    sys.stdout = original_stdout
+    message = captured_output.getvalue().strip()
+
+    if "not found" in message.lower():
+        clientsocket.send("open_err".encode()) 
+    else:
+        clientsocket.send("open_ok".encode())
+
 
 
 
 def killRunningApp(clientsocket, pid):
     try:
         os.kill(pid, signal.SIGTERM)
-        clientsocket.send("ok".encode())
+        clientsocket.send("kill_ok".encode())
     except:
-        clientsocket.send("err".encode())
+        clientsocket.send("kill_err".encode())
     
     # Sending a response to the client about the result
     # listRunningApp(clientsocket)

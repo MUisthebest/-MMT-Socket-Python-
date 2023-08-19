@@ -18,3 +18,4 @@ def receiveProcess(clientsocket):
 
 def receiveStatus(clientsocket):
     communicate.status = clientsocket.recv(1024).decode()
+    communicate.queue_to_main.put(communicate.command + "_process")
