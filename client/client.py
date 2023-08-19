@@ -63,7 +63,6 @@ def start_client():
     except:
         clientsocket.close()
         communicate.init()
-        print("wtf")
         return False
     clientsocket.close()
     communicate.init()
