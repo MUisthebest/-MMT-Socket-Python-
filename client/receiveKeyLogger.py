@@ -1,7 +1,5 @@
 
-import struct
 import os 
-import queue
 from GUI import communicate
 
 script_dir = os.path.dirname(__file__)

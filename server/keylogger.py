@@ -1,6 +1,5 @@
 from pynput import keyboard
 import threading
-import struct
 from GUI import config
 import os
 

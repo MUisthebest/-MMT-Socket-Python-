@@ -1,7 +1,6 @@
 from tkinter import filedialog
 from tkinter import Tk
 from PIL import Image 
-from GUI import menuScreen
 from GUI import communicate
 import struct
 import io

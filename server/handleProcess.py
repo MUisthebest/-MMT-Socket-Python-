@@ -1,7 +1,6 @@
 import psutil
 import struct
 import signal
-import errno
 import os
 
 def killProcess(clientsocket, pid):

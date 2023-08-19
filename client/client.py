@@ -1,5 +1,4 @@
 import socket
-from PIL import Image
 import receiveScreenShot
 import receiveRunningApp
 import receiveProcess
@@ -38,8 +37,6 @@ def start_client():
             if valid(command) : clientsocket.send(command.encode('ascii'))
             command = list(map(str, command.split()))
             flag = command[0]
-            parameter = -1
-            if len(command) > 1 : parameter = command[1]
             
             if flag == "screenshot": receiveScreenShot.readImage(clientsocket)
             elif flag == "saveimage": receiveScreenShot.saveImage()

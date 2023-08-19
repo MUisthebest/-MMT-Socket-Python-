@@ -15,7 +15,6 @@ def handleClientSocket(clientsocket):
         try:
             command = clientsocket.recv(1024).decode('ascii')
             # print(command)
-            print(config.openServer)
             if not command: 
                 print("goodbye")
                 break
@@ -58,6 +57,7 @@ def start_server():
     serversocket.bind((host, port))
     serversocket.listen(5)
     serversocket.settimeout(2)
+    print("Waiting...")
     while config.openServer:
         try:
             clientsocket, addr = serversocket.accept()
