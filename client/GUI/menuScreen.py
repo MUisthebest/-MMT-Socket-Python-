@@ -43,8 +43,10 @@ pcs_list = []
 
    
 
-def click_button(s):
+def click_button(s, saveKey = False):
     communicate.command = s
+    if saveKey:
+        communicate.start_id = communicate.kill_id = s
 
 def change_frame(frame):
     style2 = ttk.Style()
@@ -70,14 +72,16 @@ def notice4(root,s):
     my_not4.geometry("250x250")
     my_not4.configure(bg = COLOUR_BACKGROUND)
     my_not4.title('')
-    l1 = Label(my_not4,text =  'Đã diệt ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    s = s.split(' ')
+    l1 = Label(my_not4,text =  'Đã diệt ' + s[1],bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 def notice5(root,s):
     my_not5 = Toplevel(root)
     my_not5.geometry("250x250")
     my_not5.configure(bg = COLOUR_BACKGROUND)
     my_not5.title('')
-    l1 = Label(my_not5,text = 'Không tồn tại ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    s = s.split(' ')
+    l1 = Label(my_not5,text = 'Không tồn tại ' + s[1],bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 # Điều kiện của Start
 
@@ -86,7 +90,10 @@ def notice6(root,s):
     my_not6.geometry("250x250")
     my_not6.configure(bg = COLOUR_BACKGROUND)
     my_not6.title('')
-    l1 = Label(my_not6,text = 'Đã bật ' + s,bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
+    print(s)
+    s = s.split(' ')
+    print(s)
+    l1 = Label(my_not6,text = 'Đã bật ' + s[1],bg = COLOUR_BACKGROUND,fg = COLOUR_FONT,activeforeground = COLOUR_AFTER).grid(column=1, row = 1, padx = 50, pady = 70)
 
 
 def kill(s, root, self, filename = "processData.txt"):
@@ -106,14 +113,14 @@ def kill(s, root, self, filename = "processData.txt"):
 def start(s, root, self, filename = "processData.txt"):
     # click_button(s)
     if communicate.status == "open_ok":
-       delete(self)
-       time.sleep(1)
-       if filename == "processData.txt":click_button("listprocess")
-       if filename == "apprunningData.txt":
+        delete(self)
+        time.sleep(1)
+        if filename == "processData.txt":click_button("listprocess")
+        if filename == "apprunningData.txt":
            click_button("listrunningapp")
-       notice6(root,s)
+        notice6(root,s)
     else:
-       notice5(root,s)
+        notice5(root,s)
     
 def kill_window(s,root,self, filename = "processData.txt"):
     my_kll = Toplevel(root)
@@ -126,8 +133,7 @@ def kill_window(s,root,self, filename = "processData.txt"):
     communicate.root_kill = root 
     communicate.self_kill = self
     # Button(my_kll, text="Kill",width=8,command = lambda: kill(s+" "+txt.get(),my_kll,self, filename)).place(x=200, y=10)
-    Button(my_kll, text="Kill",width=8,command = lambda: click_button(s + " " + txt.get())).place(x=200, y=10)
-    communicate.kill_id = s + " " + txt.get()
+    Button(my_kll, text="Kill",width=8,command = lambda: click_button(s + " " + txt.get(), True)).place(x=200, y=10)
 
     
     
@@ -142,8 +148,7 @@ def start_window(s,root,self, filename = "processData.txt"):
     communicate.root_start = root 
     communicate.self_start = self
     # Button(my_sta, text = "Start", width = 8,command = lambda: start(s+" "+txt.get(),my_sta,self, filename)).place(x = 200, y = 10)
-    Button(my_sta, text = "Start", width = 8,command = lambda: click_button(s + " " + txt.get())).place(x = 200, y = 10)
-    communicate.start_id = s + " " + txt.get()
+    Button(my_sta, text = "Start", width = 8,command = lambda: click_button(s + " " + txt.get(), True)).place(x = 200, y = 10)
 
 def do_kill(s,root,self, filename = "processData.txt"):
     kill_window(s,root,self, filename)
@@ -682,13 +687,14 @@ def check_queue():
             insertText(communicate.frameProcess)
         elif command == "displayrunningapp":
             insertText(communicate.frameRunningApp, "apprunningData.txt")
-        elif command == "kill_ok_process":
+        elif command == "kill_ok_process" or command == "kill_err_process":
             kill(communicate.kill_id, communicate.root_kill, communicate.self_kill)
-        elif command == "open_ok_process":
-            start(communicate.start_id, communicate.root_start, communicate.self_start)
-        elif command == "kill_err_app":
+        # elif command == "open_ok_process" or command == "open_err_process":
+        #     start(communicate.start_id, communicate.root_start, communicate.self_start)
+        elif command == "kill_ok_app" or command == "kill_err_app":
             kill(communicate.kill_id, communicate.root_kill, communicate.self_kill, "apprunningData.txt")
-        elif command == "open_err_app":
+        elif command == "open_ok_app" or command == "open_err_app":
+            print("Day ne: " + communicate.start_id)
             start(communicate.start_id, communicate.root_start, communicate.self_start, "apprunningData.txt")
         print(command)
 
