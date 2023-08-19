@@ -5,7 +5,7 @@ from tkinter import ttk
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import Toplevel, Label, Button, PhotoImage
-# from PIL import Image, ImageTk
+from PIL import Image, ImageTk
 from tkinter.scrolledtext import ScrolledText
 import queue
 
