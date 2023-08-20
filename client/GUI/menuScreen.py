@@ -271,7 +271,7 @@ def scr_window():
 
 def send_keyLogger (txt):  
     # click_button(s)
-    # if communicate.status_connection == 0:
+    #if communicate.status_connection == 0:
     #    notice1()
     #    return
     # notice3()
@@ -366,14 +366,11 @@ def pcs_window():
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
     button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",my_pcs,frame2))
-    # button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
-    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: click_button("listprocess"))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
     button2.configure(style='TButton')
     button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete(frame2))
     button3.configure(style='TButton')
-    button4 = ttk.Button(frame1, text="Start", width=20, style='TButton', command = lambda: do_start("startproccess",my_pcs,frame2))
-    button4.configure(style='TButton')
-    button_list = [button1, button2, button3, button4]
+    button_list = [button1, button2, button3]
     for i in range(len(button_list)):
         button_list[i].pack(side="left", padx=15)
 
@@ -584,8 +581,8 @@ def get_ip(entryBox):
     if (communicate.status_connection != 0) : return
     ip = entryBox.get()
     communicate.ipHost = ip
-    communicate.status_connection = 1
-    while communicate.status_connection == 1 : pass
+    #communicate.status_connection = 1
+    #while communicate.status_connection == 1 : pass
     if communicate.status_connection == 2 :
        notice3()   
     else:
@@ -605,12 +602,12 @@ def validate_input(char):
         return False
 
 def disconnect_work (s):
-    if communicate.command == 0 : 
-        notice1()
-        return
-    else : 
+    if communicate.command == 2 : 
         click_button(s)
         notice7()
+    else : 
+        notice1()
+        return
 
 
 
