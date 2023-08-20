@@ -366,7 +366,7 @@ def pcs_window():
     style1 = ttk.Style()
     style1.configure('TButton', background= COLOUR_BUTTON)
     button1 = ttk.Button(frame1, text="Kill", width=20, style='TButton', command = lambda: do_kill("killprocess",my_pcs,frame2))
-    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: insertText("listprocess",frame2))
+    button2 = ttk.Button(frame1, text="Xem", width=20, style='TButton', command = lambda: click_button("listprocess"))
     button2.configure(style='TButton')
     button3 = ttk.Button(frame1, text="Xóa", width=20, style='TButton', command = lambda: delete(frame2))
     button3.configure(style='TButton')
