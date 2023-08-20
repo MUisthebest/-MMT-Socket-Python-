@@ -581,8 +581,8 @@ def get_ip(entryBox):
     if (communicate.status_connection != 0) : return
     ip = entryBox.get()
     communicate.ipHost = ip
-    #communicate.status_connection = 1
-    #while communicate.status_connection == 1 : pass
+    communicate.status_connection = 1
+    while communicate.status_connection == 1 : pass
     if communicate.status_connection == 2 :
        notice3()   
     else:
