@@ -1,10 +1,9 @@
-4324,Start,13
-4324,listApp,13
-4324,Main Menu,13
-4264,Notepad,20
-144,Sever,17
-11240,Windows PowerShell,26
-4996,Visual Studio Code,40
-6500,Microsoft​ Edge,86
-11320,NVIDIA GeForce Overlay,34
-10796,Program Manager,73
+12476,listApp,13
+12476,Main Menu,13
+9328,Windows PowerShell,26
+8788,Sever,16
+14468,Visual Studio Code,40
+5320,Microsoft​ Edge,64
+5320,Microsoft​ Edge,64
+15280,NVIDIA GeForce Overlay,33
+6000,Program Manager,79

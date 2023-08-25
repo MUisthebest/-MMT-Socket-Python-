@@ -178,11 +178,6 @@ def insertText(self, fileDataName = "processData.txt"):
                 my_struct = MyStruct(values[0], values[1], values[2])
                 self.my_tree.insert("", 'end', values= (values[0], values[1], values[2]))
                 
-
-
-    
-
-
 def send_content(s):
     click_button(s)
     
@@ -691,9 +686,7 @@ def check_queue():
         elif command == "kill_ok_app" or command == "kill_err_app":
             kill(communicate.kill_id, communicate.root_kill, communicate.self_kill, "apprunningData.txt")
         elif command == "open_ok_app" or command == "open_err_app":
-            print("Day ne: " + communicate.start_id)
             start(communicate.start_id, communicate.root_start, communicate.self_start, "apprunningData.txt")
-        print(command)
 
     # Schedule the check_queue to run again after 100ms
     mainClient.after(100, check_queue)
