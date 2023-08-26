@@ -15,7 +15,6 @@ def receive_string_list(clientsocket):
     while bytes_received < data_length:
         chunk = clientsocket.recv(min(data_length - bytes_received, 4096))
         if not chunk:
-            print("WTF")
             raise ConnectionError("Connection lost before receiving all data")
         
         chunks.append(chunk)
@@ -34,4 +33,4 @@ def receiveProcess(clientsocket):
 
 def receiveStatus(clientsocket):
     communicate.status = clientsocket.recv(1024).decode()
-    communicate.queue_to_main.put(communicate.command + "_process")
+    communicate.queue_to_main.put(communicate.status + "_process")

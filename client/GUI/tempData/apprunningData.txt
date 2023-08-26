@@ -1,9 +1,6 @@
-12476,listApp,13
-12476,Main Menu,13
-9328,Windows PowerShell,26
-8788,Sever,16
-14468,Visual Studio Code,40
-5320,Microsoft​ Edge,64
-5320,Microsoft​ Edge,64
-15280,NVIDIA GeForce Overlay,33
-6000,Program Manager,79
+10304,online-video-cutter.com đang chia sẻ màn hình của bạn.,41
+16072,Sever,8
+1492,ngrok  tcp 8000,10
+15528,*IDLE Shell 3.11.4*,7
+10304,12T2-04,41
+7976,Program Manager,93
