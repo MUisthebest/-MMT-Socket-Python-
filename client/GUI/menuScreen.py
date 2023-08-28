@@ -597,7 +597,7 @@ def validate_input(char):
         return False
 
 def disconnect_work (s):
-    if communicate.command == 2 : 
+    if communicate.status_connection == 2 : 
         click_button(s)
         notice7()
     else : 
