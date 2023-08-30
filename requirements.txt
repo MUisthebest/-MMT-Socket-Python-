@@ -1,5 +1,4 @@
 appopener==1.7
-Pillow==9.3.0
 Pillow==10.0.0
 psutil==5.9.5
 pynput==1.7.6
